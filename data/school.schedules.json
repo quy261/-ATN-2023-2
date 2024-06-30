@@ -1,0 +1,384 @@
+[{
+
+  "sclass": "665306a66044b90b005cc176",
+  "room": "665ab58bb95c9e50b1af9316",
+  "teacher": "665b1bf5ee97a2e082f946a2",
+  "assistant": "665b1e9fee97a2e082f946aa",
+  "startTime": "2024-07-20T13:00:00.000Z",
+  "endTime": "2024-07-20T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [
+    {
+      "id": "665b1a36ee97a2e082f94697",
+      "asked": "true",
+      "_id": {
+        "$oid": "665c90701b49c0468b324487"
+      }
+    },
+    {
+      "id": "665b1a36ee97a2e082f9469a",
+      "asked": "false",
+      "_id": {
+        "$oid": "665c90701b49c0468b324488"
+      }
+    }
+  ],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": "",
+  "__v": 2,
+  "updatedAt": {
+    "$date": "2024-06-02T15:32:00.189Z"
+  }
+},
+{
+
+  "sclass": "6659f42c8f60e6e248d77292",
+  "room": "665ac4c582782ced5954e78f",
+  "teacher": "665b1bf5ee97a2e082f946a5",
+  "assistant": "665b1e9fee97a2e082f946ae",
+  "startTime": "2024-07-22T15:00:00.000Z",
+  "endTime": "2024-07-22T17:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6652ebc4c7366660f62152bc",
+  "room": "66559603d4714d1a2b8e6f1d",
+  "teacher": "665b1bf5ee97a2e082f946a6",
+  "assistant": "665b1e9fee97a2e082f946af",
+  "startTime": "2024-07-24T17:00:00.000Z",
+  "endTime": "2024-07-24T19:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6659f44b8f60e6e248d772a5",
+  "room": "6655951e30d1cbd00c669e6f",
+  "teacher": "665b1bf5ee97a2e082f946a7",
+  "assistant": "665b1e9fee97a2e082f946b0",
+  "startTime": "2024-07-27T13:00:00.000Z",
+  "endTime": "2024-07-27T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "665306a66044b90b005cc176",
+  "room": "665ab58bb95c9e50b1af9316",
+  "teacher": "665b1bf5ee97a2e082f946a0",
+  "assistant": "665b1e9fee97a2e082f946a9",
+  "startTime": "2024-07-29T15:00:00.000Z",
+  "endTime": "2024-07-29T17:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": "",
+  "__v": 2,
+  "updatedAt": {
+    "$date": "2024-06-02T15:45:21.917Z"
+  }
+},
+{
+
+  "sclass": "6659f42c8f60e6e248d77292",
+  "room": "665ac4c582782ced5954e78f",
+  "teacher": "665b1bf5ee97a2e082f946a1",
+  "assistant": "665b1e9fee97a2e082f946ab",
+  "startTime": "2024-07-30T17:00:00.000Z",
+  "endTime": "2024-07-30T19:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+ 
+  "sclass": "6652ebc4c7366660f62152bc",
+  "room": "66559603d4714d1a2b8e6f1d",
+  "teacher": "665b1bf5ee97a2e082f946a3",
+  "assistant": "665b1e9fee97a2e082f946ac",
+  "startTime": "2024-07-02T13:00:00.000Z",
+  "endTime": "2024-07-02T15:00:00.000Z",
+  "school": {
+    "$oid": "665b222c6127403bcb13e26f"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T04:26:49.814Z"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6659f44b8f60e6e248d772a5",
+  "room": "6655951e30d1cbd00c669e6f",
+  "teacher": "665b1bf5ee97a2e082f946a4",
+  "assistant": "665b1e9fee97a2e082f946ad",
+  "startTime": "2024-07-03T13:00:00.000Z",
+  "endTime": "2024-07-03T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "665306a66044b90b005cc176",
+  "room": "665ab58bb95c9e50b1af9316",
+  "teacher": "665b1bf5ee97a2e082f946a2",
+  "assistant": "665b1e9fee97a2e082f946aa",
+  "startTime": "2024-07-05T15:00:00.000Z",
+  "endTime": "2024-07-05T17:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6659f42c8f60e6e248d77292",
+  "room": "665ac4c582782ced5954e78f",
+  "teacher": "665b1bf5ee97a2e082f946a5",
+  "assistant": "665b1e9fee97a2e082f946ae",
+  "startTime": "2024-07-07T17:00:00.000Z",
+  "endTime": "2024-07-07T19:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6652ebc4c7366660f62152bc",
+  "room": "66559603d4714d1a2b8e6f1d",
+  "teacher": "665b1bf5ee97a2e082f946a6",
+  "assistant": "665b1e9fee97a2e082f946af",
+  "startTime": "2024-07-10T13:00:00.000Z",
+  "endTime": "2024-07-10T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6659f44b8f60e6e248d772a5",
+  "room": "6655951e30d1cbd00c669e6f",
+  "teacher": "665b1bf5ee97a2e082f946a7",
+  "assistant": "665b1e9fee97a2e082f946b0",
+  "startTime": "2024-07-12T13:00:00.000Z",
+  "endTime": "2024-07-12T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "665306a66044b90b005cc176",
+  "room": "665ab58bb95c9e50b1af9316",
+  "teacher": "665b1bf5ee97a2e082f946a0",
+  "assistant": "665b1e9fee97a2e082f946a9",
+  "startTime": "2024-07-14T15:00:00.000Z",
+  "endTime": "2024-07-14T17:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": "",
+  "updatedAt": {
+    "$date": "2024-06-02T14:06:54.908Z"
+  }
+},
+{
+
+  "sclass": "6659f42c8f60e6e248d77292",
+  "room": "665ac4c582782ced5954e78f",
+  "teacher": "665b1bf5ee97a2e082f946a1",
+  "assistant": "665b1e9fee97a2e082f946aa",
+  "startTime": "2024-07-17T17:00:00.000Z",
+  "endTime": "2024-07-17T19:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6652ebc4c7366660f62152bc",
+  "room": "66559603d4714d1a2b8e6f1d",
+  "teacher": "665b1bf5ee97a2e082f946a2",
+  "assistant": "665b1e9fee97a2e082f946ab",
+  "startTime": "2024-07-19T13:00:00.000Z",
+  "endTime": "2024-07-19T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [
+    {
+      "id": "665b1a36ee97a2e082f9468b",
+      "asked": "false",
+      "_id": {
+        "$oid": "665c9bbbc91ee5cb0b81317c"
+      }
+    }
+  ],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": "",
+  "__v": 5,
+  "updatedAt": {
+    "$date": "2024-06-02T18:18:47.429Z"
+  }
+},
+{
+ 
+  "sclass": "6659f44b8f60e6e248d772a5",
+  "room": "6655951e30d1cbd00c669e6f",
+  "teacher": "665b1bf5ee97a2e082f946a3",
+  "assistant": "665b1e9fee97a2e082f946ac",
+  "startTime": "2024-07-21T13:00:00.000Z",
+  "endTime": "2024-07-21T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "665306a66044b90b005cc176",
+  "room": "665ab58bb95c9e50b1af9316",
+  "teacher": "665b1bf5ee97a2e082f946a4",
+  "assistant": "665b1e9fee97a2e082f946ad",
+  "startTime": "2024-07-24T15:00:00.000Z",
+  "endTime": "2024-07-24T17:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6659f42c8f60e6e248d77292",
+  "room": "665ac4c582782ced5954e78f",
+  "teacher": "665b1bf5ee97a2e082f946a5",
+  "assistant": "665b1e9fee97a2e082f946ae",
+  "startTime": "2024-07-26T17:00:00.000Z",
+  "endTime": "2024-07-26T19:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6652ebc4c7366660f62152bc",
+  "room": "66559603d4714d1a2b8e6f1d",
+  "teacher": "665b1bf5ee97a2e082f946a6",
+  "assistant": "665b1e9fee97a2e082f946af",
+  "startTime": "2024-06-28T13:00:00.000Z",
+  "endTime": "2024-06-28T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6659f44b8f60e6e248d772a5",
+  "room": "6655951e30d1cbd00c669e6f",
+  "teacher": "665b1bf5ee97a2e082f946a7",
+  "assistant": "665b1e9fee97a2e082f946b0",
+  "startTime": "2024-06-30T13:00:00.000Z",
+  "endTime": "2024-06-30T15:00:00.000Z",
+  "school": {
+    "$oid": "66594b1344a31d056007ce08"
+  },
+  "absences": [],
+  "content": "",
+  "linkFile": "",
+  "linkZoom": ""
+},
+{
+
+  "sclass": "6652ebc4c7366660f62152bc",
+  "room": "66559603d4714d1a2b8e6f1d",
+  "teacher": "665b1bf5ee97a2e082f946a4",
+  "assistant": "665b1e9fee97a2e082f946ae",
+  "startTime": "2024-07-02T01:30:18.000Z",
+  "endTime": "2024-07-02T03:30:18.000Z",
+  "absences": [],
+  "content": "",
+  "linkZoom": "",
+  "linkFile": "",
+  "school": {
+    "$oid": "665b22986127403bcb13e27e"
+  },
+  "createdAt": {
+    "$date": "2024-06-02T18:37:02.758Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T18:37:02.758Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "665c6d23fc201845513b09d0"
+  },
+  "name": "665b1a36ee97a2e082f9468c",
+  "userId": "665b1bf5ee97a2e082f946a0",
+  "comment": "Chú ý không nói chuyện riêng",
+  "createdAt": {
+    "$date": "2024-06-02T13:01:23.775Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-02T13:01:23.775Z"
+  },
+  "__v": 0
+}]

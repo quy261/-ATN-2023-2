@@ -1,0 +1,152 @@
+[{
+  "_id": {
+    "$oid": "665b1bf5ee97a2e082f946a0"
+  },
+  "name": "Nguyễn Văn Cường",
+  "sclassName": "Cử nhân",
+  "dob": "1995-08-20T17:00:00.000Z",
+  "phone": "0123456789",
+  "email": "nguyenvanc@example.com",
+  "password": "$2b$10$ReyDu27oF/EQB3qC75G/v.CS.1ojgCzftyaeVPG7/F1FP0wJv6OnS",
+  "avatar": "/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247047395.png",
+  "role": "Teacher",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T12:29:00.305Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1bf5ee97a2e082f946a1"
+  },
+  "name": "Trần Thị Bình",
+  "sclassName": "Kỹ sư",
+  "dob": "1993-05-10T17:00:00.000Z",
+  "phone": "0987654321",
+  "email": "tranb@example.com",
+  "password": "$2b$10$5I0O6pYtPFlwP4qq2GpAIOGYmrMvG4yVtYqLW1YHGEdH69T/sRrju",
+  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247018307.png",
+  "role": "Teacher",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T12:30:41.073Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1bf5ee97a2e082f946a2"
+  },
+  "name": "Phạm Văn Duy",
+  "sclassName": "Kỹ sư",
+  "dob": "1985-03-15T17:00:00.000Z",
+  "phone": "0123654789",
+  "email": "phamvd@example.com",
+  "password": "$2b$10$yG0OTxBYR1nU7h4LVuUme.p9WFN1S5N0kLBUyfYn9mIbEssJTIsAa",
+  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247150188.png",
+  "role": "Teacher",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T12:31:02.876Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1bf5ee97a2e082f946a3"
+  },
+  "name": "Lê Thị Dung",
+  "sclassName": "Thạc sĩ",
+  "dob": "1988-12-01T17:00:00.000Z",
+  "phone": "0123654789",
+  "email": "led@example.com",
+  "password": "$2b$10$PxVrtMWSnbiMknvkJBV9qeM6ve2fqSb95PwtoGVjLqVXpdFdS/Z5e",
+  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247119446.png",
+  "role": "Teacher",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T12:31:27.745Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1bf5ee97a2e082f946a4"
+  },
+  "name": "Nguyễn Thị Lý",
+  "sclassName": "Thạc sĩ",
+  "dob": "1987-09-08T17:00:00.000Z",
+  "phone": "0123456789",
+  "email": "nguyenthie@example.com",
+  "password": "$2b$10$YeN9o65rghjwgFpBVYnrWeUkUP0M0fezCaYyGrjEFolZ3lc7LG3Um",
+  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247222348.png",
+  "role": "Teacher",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T12:31:47.821Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1bf5ee97a2e082f946a5"
+  },
+  "name": "Hoàng Thu Vân",
+  "sclassName": "Thạc sĩ",
+  "dob": "1986-07-25T17:00:00.000Z",
+  "phone": "0123456789",
+  "email": "hoangvf@example.com",
+  "password": "$2b$10$.RTuLe.6Oqeits7fW3gOAO6k7MfRkr58IKS4UGsKpzbpqC1g3CdDG",
+  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247254552.png",
+  "role": "Teacher",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T12:32:07.910Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1bf5ee97a2e082f946a6"
+  },
+  "name": "Trần Văn Giang",
+  "sclassName": "Tiến sĩ",
+  "dob": "1980-11-10T17:00:00.000Z",
+  "phone": "0123654789",
+  "email": "tranvg@example.com",
+  "password": "$2b$10$0/ZhIAlGpwSo/PMbh6.ibOWwbv2ylIpv/2YvTaSL7NjWUIjyfJWYW",
+  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247172761.png",
+  "role": "Teacher",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T12:32:23.439Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1bf5ee97a2e082f946a7"
+  },
+  "name": "Phạm Thị Hoài",
+  "sclassName": "Tiến sĩ",
+  "dob": "1978-06-20T17:00:00.000Z",
+  "phone": "0123456789",
+  "email": "phamvg@example.com",
+  "password": "$2b$10$SsRuptu3FqWykKINxgeoYuiiM7ckIgTMOVARx6GnovONm2gnxGHX6",
+  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247192706.png",
+  "role": "Teacher",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T12:32:39.551Z"
+  }
+}]

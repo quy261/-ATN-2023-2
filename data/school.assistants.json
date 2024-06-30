@@ -1,0 +1,152 @@
+[{
+  "_id": {
+    "$oid": "665b1e9fee97a2e082f946a9"
+  },
+  "name": "Nguyễn Thị Lan",
+  "sclassName": "Sinh viên",
+  "dob": "2003-04-15T17:00:00.000Z",
+  "phone": "0123456780",
+  "email": "nguyenthilan@example.com",
+  "password": "$2b$10$ifSvtlEA2cJ9vR5CKfynIuz2UyvpbicOPdjsw1x5KjRTAnGoVJRD.",
+  "avatar": "null",
+  "role": "Assistant",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T17:08:14.130Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1e9fee97a2e082f946aa"
+  },
+  "name": "Trần Đình Long",
+  "sclassName": "Cử nhân",
+  "dob": "1994-08-25T17:00:00.000Z",
+  "phone": "0987654321",
+  "email": "trandinhlong@example.com",
+  "password": "$2b$10$.rQOk1y93mZdD6xg4rrIUOeb1DHMiS.H07u2QQlaU3wKQUBAlIekS",
+  "avatar": "null",
+  "role": "Assistant",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T17:08:31.752Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1e9fee97a2e082f946ab"
+  },
+  "name": "Phạm Thị Thu Hà",
+  "sclassName": "Sinh viên",
+  "dob": "2002-07-10T17:00:00.000Z",
+  "phone": "0123654789",
+  "email": "phamthithuha@example.com",
+  "password": "$2b$10$JdkztfESoMqdTXrYEw.LauQCzb9tzB4lte97ddqwCibiZe1NLHc9W",
+  "avatar": "null",
+  "role": "Assistant",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T17:04:17.355Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1e9fee97a2e082f946ac"
+  },
+  "name": "Lê Đình Quân",
+  "sclassName": "Cử nhân",
+  "dob": "1991-10-05T17:00:00.000Z",
+  "phone": "0123654789",
+  "email": "ledinhquan@example.com",
+  "password": "$2b$10$SxuffCpUdVYQrPYrSHxM0uYCCxemHKvm4MJrW/g4G.TC1J7QoblAi",
+  "avatar": "null",
+  "role": "Assistant",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T17:08:49.848Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1e9fee97a2e082f946ad"
+  },
+  "name": "Nguyễn Minh Thu",
+  "sclassName": "Sinh viên",
+  "dob": "2004-12-30T17:00:00.000Z",
+  "phone": "0123456789",
+  "email": "nguyenminhthu@example.com",
+  "password": "$2b$10$RnvL5BUDvltoaDwI1zGeBeHhiHIFp0kV95LTh98zIVUo5l9Tbzgim",
+  "avatar": "null",
+  "role": "Assistant",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T17:09:08.685Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1e9fee97a2e082f946ae"
+  },
+  "name": "Hoàng Đức Trọng",
+  "sclassName": "Kỹ sư",
+  "dob": "1992-03-20T17:00:00.000Z",
+  "phone": "0123456789",
+  "email": "hoangductrong@example.com",
+  "password": "$2b$10$.CZtBvn3Y6i2GCD5OURAP.WvtlDzXP1ALZk0Zpzr2xEXDY2AtiXfy",
+  "avatar": "null",
+  "role": "Assistant",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T17:09:27.296Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1e9fee97a2e082f946af"
+  },
+  "name": "Trần Thị Hương",
+  "sclassName": "Sinh viên",
+  "dob": "2001-09-18T17:00:00.000Z",
+  "phone": "0123654789",
+  "email": "tranthihuong@example.com",
+  "password": "$2b$10$wgbu4KlHKwI5cHArCQwbzOYI17K9DAO0s.h1axia2d1FlEzS8FgNq",
+  "avatar": "null",
+  "role": "Assistant",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T17:07:55.639Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665b1e9fee97a2e082f946b0"
+  },
+  "name": "Phạm Văn Tuân",
+  "sclassName": "Kỹ sư",
+  "dob": "1993-06-25T17:00:00.000Z",
+  "phone": "0123456789",
+  "email": "phamvantuan@example.com",
+  "password": "$2b$10$XoCeDsHMyoMB6CRQRPtF.eCwymr0EDfDuxTR/MzH0CdXzlQx6pBie",
+  "avatar": "null",
+  "role": "Assistant",
+  "school": {
+    "$oid": "664d64b764ef14d9230c13b8"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T17:09:43.973Z"
+  }
+}]

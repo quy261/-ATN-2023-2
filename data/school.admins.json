@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "665b222c6127403bcb13e26f"
+  },
+  "name": "Nhân viên 1",
+  "email": "nv1@nv.com",
+  "password": "$2b$10$WTw8iLgEayprrkb2bCZAxO2mRN80CgUf4PahiWikKWOUFJRFudgfy",
+  "role": "Accountant",
+  "schoolName": "TAE",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b223c6127403bcb13e274"
+  },
+  "name": "Nhân viên 2",
+  "email": "nv2@nv.com",
+  "password": "$2b$10$TNKKvfT/14DN.saUojrt2uL.NLUZZR.La1fK7F/SQRtg4eJlYJEEe",
+  "role": "Accountant",
+  "schoolName": "TAE",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b22986127403bcb13e27e"
+  },
+  "name": "Quản trị viên 1",
+  "email": "admin1@admin.com",
+  "password": "$2b$10$ENMKW5v5S0RTfus97ybvjeo4SYXYSUtBBGlCqOYtCn53HtNq.rvqu",
+  "role": "Admin",
+  "schoolName": "TAE",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b22a86127403bcb13e283"
+  },
+  "name": "Quản trị viên 2",
+  "email": "admin2@admin.com",
+  "password": "$2b$10$FjQq9xXi018vu70WO7gt2.NiETuK85SaTDSYFD2ca.1vigvt586Ky",
+  "role": "Admin",
+  "schoolName": "TAE",
+  "__v": 0
+}]

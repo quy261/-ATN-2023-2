@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "665c38c5e3971d05dfb792a1"
+  },
+  "name": "665b1a36ee97a2e082f9468a",
+  "month": "5/2024",
+  "type": "tuition",
+  "amount": "1200000",
+  "createdAt": {
+    "$date": "2024-06-02T09:17:57.711Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T09:17:57.711Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665c3df4e3971d05dfb7932e"
+  },
+  "name": "665b1a36ee97a2e082f94692",
+  "month": "6/2024",
+  "type": "tuition",
+  "amount": "1000000",
+  "createdAt": {
+    "$date": "2024-06-02T09:40:04.896Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T09:40:04.896Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665c3dffe3971d05dfb7933e"
+  },
+  "name": "665b1bf5ee97a2e082f946a6",
+  "month": "6/2024",
+  "type": "wage",
+  "amount": "2000000",
+  "createdAt": {
+    "$date": "2024-06-02T09:40:15.883Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-02T09:40:15.883Z"
+  },
+  "__v": 0
+}]
