@@ -1,6 +1,6 @@
-1. Giải nén file zip
+1. Clone project về máy
 
-2. Dùng Visual Studio Code mở folder tae-project bên trong có 3 thư mục frontend, backend và data
+2. Dùng Visual Studio Code mở folder bên trong có 3 thư mục frontend, backend và data
 
 3.
 - frontend: 
@@ -69,4 +69,5 @@
 + Danh sách trợ giảng: Xem danh sách, xem chi tiết trợ giảng
 + Danh sách lịch học: Xem danh sách, xem chi tiết lịch học, xin/hủy xin nghỉ học
 + Xem thông tin tài khoản, đổi mật khẩu
-+ Đăng xuất# -ATN-2023-2
++ Đăng xuất
+# -ATN-2023-2
