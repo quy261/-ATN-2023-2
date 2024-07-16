@@ -81,7 +81,6 @@ const AddRoom = () => {
   const submitHandler = event => {
     event.preventDefault();
     setLoader(true);
-    console.log(fields);
     dispatch(addStuff(fields, address));
   };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import styled from "styled-components";
@@ -25,7 +25,6 @@ import { DateTimeField } from "@mui/x-date-pickers/DateTimeField";
 import { registerUser } from "../../../redux/userRelated/userHandle";
 import Popup from "../../../components/Popup";
 import { underControl } from "../../../redux/userRelated/userSlice";
-import { getAllSclasses } from "../../../redux/sclassRelated/sclassHandle";
 
 import {
   LightWhiteButton,
@@ -73,6 +72,8 @@ const AddAssistant = () => {
 
   const [avatarName, setAvatarName] = useState("");
 
+  const [urlImage, setUrlImage] = useState("");
+
   const [sclassName, setSclassName] = useState("");
 
   const adminID = currentUser._id;
@@ -113,8 +114,12 @@ const AddAssistant = () => {
 
   const handleFileChange = event => {
     const file = event.target.files[0];
-    setAvatar(file);
-    setAvatarName(file ? file.name : "");
+    if (file) {
+      console.log(file);
+      setAvatar(file);
+      setAvatarName(file ? file.name : "");
+      setUrlImage(file ? URL.createObjectURL(file) : "");
+    }
   };
 
   const address = "Assistant";
@@ -282,9 +287,12 @@ const AddAssistant = () => {
                     <input type="file" hidden onChange={handleFileChange} />
                   </Button>
                   {avatarName && (
-                    <Typography variant="body2" mt={2}>
-                      {avatarName}
-                    </Typography>
+                      <>
+                      <Typography variant="body2" mt={2}>
+                        {avatarName}
+                      </Typography>
+                      <img src={urlImage} alt="avatar" style={{width: "500px"}}></img>
+                      </>                      
                   )}
                 </Grid>
               </Grid>

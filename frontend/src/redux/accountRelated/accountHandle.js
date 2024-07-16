@@ -5,7 +5,6 @@ import {
   getFailed,
   getError,
   detailsSuccess,
-  resetSubjects,
 } from "./accountSlice";
 
 export const getAllAdmins = id => async dispatch => {

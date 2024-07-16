@@ -27,19 +27,27 @@ import { LightOrangeButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
 import NoData from "../../../assets/no-data.webp";
 import Ava from "../../../assets/teacher/giao-vien-02.png";
-import { getUserDetails } from "../../../redux/userRelated/userHandle";
+import {
+  deleteUser,
+  getUserDetails,
+} from "../../../redux/userRelated/userHandle";
 import { getAllSclasses } from "../../../redux/sclassRelated/sclassHandle";
 import { LightWhiteButton } from "../../../components/buttonStyles";
 import { getAllRooms } from "../../../redux/roomRelated/roomHandle";
 import { getAllAssistants } from "../../../redux/assistantRelated/assistantHandle";
 import { getAllTeachers } from "../../../redux/teacherRelated/teacherHandle";
-import { getStudentDetails } from "../../../redux/studentRelated/studentHandle";
+import {
+  getAllStudents,
+  getStudentDetails,
+} from "../../../redux/studentRelated/studentHandle";
 
 import {
   getSchedulesByClass,
   getSchedulesByStudent,
 } from "../../../redux/scheduleRelated/scheduleHandle";
 import { getCommentsByStudentId } from "../../../redux/commentRelated/commentHandle";
+import { getAllMoneyDefs } from "../../../redux/moneyDefRelated/moneyDefHandle";
+import { getAllMoneys } from "../../../redux/moneyRelated/moneyHandle";
 
 const StudentDetails = () => {
   const params = useParams();
@@ -67,6 +75,8 @@ const StudentDetails = () => {
     dispatch(getAllTeachers(adminID));
     dispatch(getSchedulesByStudent(studentID));
     dispatch(getCommentsByStudentId(studentID));
+    dispatch(getAllMoneys(adminID));
+    dispatch(getAllMoneyDefs(adminID));
   }, [dispatch, studentID, adminID]);
 
   const { sclassesList } = useSelector(state => state.sclass);
@@ -80,6 +90,24 @@ const StudentDetails = () => {
   const { assistantsList } = useSelector(state => state.assistant);
 
   const { commentsList } = useSelector(state => state.comment);
+
+  const { moneysList } = useSelector(state => state.money);
+
+  const { moneyDefsList } = useSelector(state => state.moneyDef);
+
+  const [tuitionDef, setTuitionDef] = useState("");
+
+  useEffect(() => {
+    if (moneyDefsList.length > 0) {
+      const tuitionDef = moneyDefsList.find(def => def.type === "Học sinh");
+      if (tuitionDef) {
+        const parsedAmount = parseFloat(tuitionDef.amount);
+        if (!isNaN(parsedAmount)) {
+          setTuitionDef(parsedAmount);
+        }
+      }
+    }
+  }, [moneyDefsList]);
 
   const getSclassNameById = id => {
     const sclass = sclassesList.find(sclass => sclass._id === id);
@@ -108,6 +136,34 @@ const StudentDetails = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const [message, setMessage] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [deleteID, setDeleteID] = useState(null);
+
+  const [address, setAddress] = useState("");
+
+
+  const handleDeleteClick = (id, addr) => {
+    setDeleteID(id);
+    setAddress(addr);
+    setShowModal(true);
+  };
+
+  const deleteHandler = (deleteID, address) => {
+    dispatch(deleteUser(deleteID, address)).then(() => {
+      navigate("/Admin/students");
+    });
+  };
+
+  const handleConfirmDelete = () => {
+    deleteHandler(deleteID, address);
+    setShowModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowModal(false);
+  };
 
   const StudentDetailsSection = () => {
     return (
@@ -188,13 +244,23 @@ const StudentDetails = () => {
           </Grid>
           <Grid xs={12} display={"flex"} justifyContent={"end"}>
             {currentRole == "Admin" ? (
-              <LightWhiteButton
-                variant="contained"
-                onClick={() => navigate("/Admin/studentedit/" + studentID)}
-              >
-                <EditNoteIcon style={{ marginRight: "0.5rem" }} />
-                Sửa thông tin
-              </LightWhiteButton>
+              <>
+                <LightWhiteButton
+                  variant="contained"
+                  onClick={() => navigate("/Admin/studentedit/" + studentID)}
+                  style={{ marginRight: "1rem" }}
+                >
+                  <EditNoteIcon style={{ marginRight: "0.5rem" }} />
+                  Sửa thông tin
+                </LightWhiteButton>
+                <LightWhiteButton
+                  variant="contained"
+                  onClick={() => handleDeleteClick(studentID, "Student")}
+                >
+                  <EditNoteIcon style={{ marginRight: "0.5rem" }} />
+                  Xóa học sinh
+                </LightWhiteButton>
+              </>
             ) : null}
           </Grid>
         </MyGrid>
@@ -225,18 +291,41 @@ const StudentDetails = () => {
 
       schedulesList.forEach(schedule => {
         const startTime = new Date(schedule.startTime);
-        const monthYear = `${
-          startTime.getMonth() + 1
-        }/${startTime.getFullYear()}`;
+        let now = new Date();
+        let firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
 
-        if (monthScheduleCount[monthYear]) {
-          monthScheduleCount[monthYear]++;
-        } else {
-          monthScheduleCount[monthYear] = 1;
+        if(startTime < firstDayOfMonth) {
+          const monthYear = `${
+            startTime.getMonth() + 1
+          }/${startTime.getFullYear()}`;
+  
+          if (monthScheduleCount[monthYear]) {
+            monthScheduleCount[monthYear]++;
+          } else {
+            monthScheduleCount[monthYear] = 1;
+          }
         }
       });
 
-      setTuition(monthScheduleCount);
+      const newTuition = {};
+
+      Object.keys(monthScheduleCount).forEach(monthYear => {
+        if (!newTuition[monthYear]) {
+          newTuition[monthYear] = {
+            count: monthScheduleCount[monthYear],
+            paid: "Chưa thanh toán",
+          };
+        }
+      });
+
+      moneysList.forEach(money => {
+        const monthYear = money.month;
+        if (newTuition[monthYear] && money.name === studentID) {
+          newTuition[monthYear].paid = money.status;
+        };
+      });
+
+      setTuition(newTuition);
     }
   }, [schedulesList]);
 
@@ -330,7 +419,6 @@ const StudentDetails = () => {
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, [sampleScheduleData, selectedDate]);
 
@@ -460,6 +548,14 @@ const StudentDetails = () => {
     setSelectedScheduleDetail(null);
   };
 
+  const handleAddTuition = (item1, item2) => {
+    if (currentRole === "Accountant") {
+      navigate("/Admin/moneyaddtuition", {
+        state: { item1, item2, studentID },
+      });
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -485,12 +581,25 @@ const StudentDetails = () => {
                 </Typography>
                 <Grid container>
                   {Object.keys(tuition).map(monthYear => (
-                    <Grid item xs={12}>
-                      <TuitionItem style={{ width: "100%" }}>
+                    <Grid item xs={12} key={monthYear}>
+                      <TuitionItem
+                        style={{ width: "100%" }}
+                        onClick={() =>
+                          tuition[monthYear].paid === "Chưa thanh toán"
+                            ? handleAddTuition(
+                                tuition[monthYear].count,
+                                monthYear
+                              )
+                            : {}
+                        }
+                      >
                         <p>
-                          Tháng {monthYear}: {tuition[monthYear]} buổi
+                          Tháng {monthYear}: {tuition[monthYear].count} buổi
                         </p>
-                        <p>Học phí: {tuition[monthYear] * 300000}đ</p>
+                        <p>
+                          Học phí: {tuition[monthYear].count * tuitionDef}đ
+                          - <i>{tuition[monthYear].paid}</i>
+                        </p>
                       </TuitionItem>
                     </Grid>
                   ))}
@@ -721,6 +830,57 @@ const StudentDetails = () => {
             )}
           </div>
         </>
+      )}
+      {showModal && (
+        <Modal
+          open={showModal}
+          onClose={handleCancelDelete}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 400,
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography id="modal-title" variant="h6" component="h2">
+              Xác nhận xóa
+            </Typography>
+            <Typography id="modal-description" sx={{ mt: 2 }}>
+              Bạn có chắc chắn muốn xóa?
+            </Typography>
+            <Box sx={{ mt: 2 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={handleConfirmDelete}
+                  >
+                    Xác nhận
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    onClick={handleCancelDelete}
+                  >
+                    Hủy
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Modal>
       )}
       <Popup
         message={message}

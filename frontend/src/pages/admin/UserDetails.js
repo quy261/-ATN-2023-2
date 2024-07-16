@@ -33,6 +33,7 @@ import {
 import { getAllMoneys } from "../../redux/moneyRelated/moneyHandle";
 import { getStudentDetails } from "../../redux/studentRelated/studentHandle";
 import { getCommentsByStudentId } from "../../redux/commentRelated/commentHandle";
+import { getAllMoneyDefs } from "../../redux/moneyDefRelated/moneyDefHandle";
 
 const UserDetails = () => {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ const UserDetails = () => {
     dispatch(getAllSclasses(userId, "Sclass"));
     dispatch(getAllRooms(userId));
     dispatch(getAllMoneys(userId));
+    dispatch(getAllMoneyDefs(userId));
   }, [dispatch, userId, userId, userId, currentRole]);
 
   const { schedulesList } = useSelector(state => state.schedule);
@@ -133,18 +135,16 @@ const UserDetails = () => {
                     <img
                       alt="avt"
                       src={
-                        teacherDetails.avatar == "null"
-                          ? "../../avatar/user.png"
-                          : `../../avatar/${teacherDetails.avatar
-                              .split("\\")
-                              .pop()}`
+                        teacherDetails.avatar === "null"
+                    ? `${process.env.REACT_APP_BASE_URL}/uploads/avatar/user.png`
+                    : `${process.env.REACT_APP_BASE_URL}/uploads/avatar/${teacherDetails.avatar}`
                       }
                       style={{ width: "50%" }}
                     />
                   )}
                   {teacherDetails && (
                     <p style={{ fontSize: "1.25rem", fontStyle: "italic" }}>
-                      {teacherDetails.name}
+                      {teacherDetails.sclassName + " " + teacherDetails.name}
                     </p>
                   )}
                 </>
@@ -154,18 +154,18 @@ const UserDetails = () => {
                     <img
                       alt="avt"
                       src={
-                        assistantDetails.avatar == "null"
-                          ? "../../avatar/user.png"
-                          : `../../avatar/${assistantDetails.avatar
-                              .split("\\")
-                              .pop()}`
+                        assistantDetails.avatar === "null"
+                    ? `${process.env.REACT_APP_BASE_URL}/uploads/avatar/user.png`
+                    : `${process.env.REACT_APP_BASE_URL}/uploads/avatar/${assistantDetails.avatar}`
                       }
                       style={{ width: "50%" }}
                     />
                   )}
                   {assistantDetails && (
                     <p style={{ fontSize: "1.25rem", fontStyle: "italic" }}>
-                      {assistantDetails.name}
+                      {assistantDetails.sclassName +
+                        " " +
+                        assistantDetails.name}
                     </p>
                   )}
                 </>
@@ -347,6 +347,10 @@ const UserDetails = () => {
 
       schedulesList.forEach(schedule => {
         const startTime = new Date(schedule.startTime);
+        let now = new Date();
+        let firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
+
+        if(startTime < firstDayOfMonth) {
         const monthYear = `${
           startTime.getMonth() + 1
         }/${startTime.getFullYear()}`;
@@ -356,6 +360,7 @@ const UserDetails = () => {
         } else {
           monthScheduleCount[monthYear] = 1;
         }
+      }
       });
 
       const newWage = {};
@@ -364,15 +369,15 @@ const UserDetails = () => {
         if (!newWage[monthYear]) {
           newWage[monthYear] = {
             count: monthScheduleCount[monthYear],
-            paid: false,
-          };
+            paid: "Chưa thanh toán",
+          }
         }
       });
 
       moneysList.forEach(money => {
         const monthYear = money.month;
         if (newWage[monthYear] && money.name === userId) {
-          newWage[monthYear].paid = true;
+          newWage[monthYear].paid = money.status;
         }
       });
 
@@ -596,13 +601,49 @@ const UserDetails = () => {
 
   const handleClick = item => {
     setSelectedScheduleDetail(item);
-    console.log(item);
     setModalOpen(true);
   };
 
   const handleClose = () => {
     setModalOpen(false);
     setSelectedScheduleDetail(null);
+  };
+
+  const { moneyDefsList } = useSelector(state => state.moneyDef);
+  const [teacherDef, setTeacherDef] = useState("");
+  const [assistantDef, setAssistantDef] = useState("");
+  const [studentDef, setStudentDef] = useState("");
+
+  useEffect(() => {
+    if (moneyDefsList.length > 0) {
+      const studentMoney = moneyDefsList.find(def => def.type === "Học sinh");
+      if (studentMoney) {
+        const parsedAmount = parseFloat(studentMoney.amount);
+        if (!isNaN(parsedAmount)) {
+          setStudentDef(parsedAmount);
+        }
+      }
+      const teacherMoney = moneyDefsList.find(def => def.type === "Giáo viên");
+      if (teacherMoney) {
+        const parsedAmount = parseFloat(teacherMoney.amount);
+        if (!isNaN(parsedAmount)) {
+          setTeacherDef(parsedAmount);
+        }
+      }
+      const assistantMoney = moneyDefsList.find(
+        def => def.type === "Trợ giảng"
+      );
+      if (assistantMoney) {
+        const parsedAmount = parseFloat(assistantMoney.amount);
+        if (!isNaN(parsedAmount)) {
+          setAssistantDef(parsedAmount);
+        }
+      }
+    }
+  }, [moneyDefsList]);
+
+  const handleAddTuition = (item1, item2) => {
+    navigate("/Admin/studentaddtuition", { state: { item1, item2, userId } });
   };
 
   return (
@@ -633,7 +674,14 @@ const UserDetails = () => {
                 <Grid container>
                   {Object.keys(wage).map(monthYear => (
                     <Grid item xs={12} key={monthYear}>
-                      <WageItem style={{ width: "100%" }}>
+                      <WageItem
+                        style={{ width: "100%" }}
+                        onClick={() =>
+                          wage[monthYear].paid !== "Chưa thanh toán" || currentRole != "Student"
+                            ? {}
+                            : handleAddTuition(wage[monthYear].count, monthYear)
+                        }
+                      >
                         <p>
                           Tháng {monthYear}: {wage[monthYear].count} buổi
                         </p>
@@ -641,18 +689,12 @@ const UserDetails = () => {
                           {currentRole == "Student" ? "Học phí: " : "Lương: "}
                           {wage[monthYear].count *
                             (currentRole == "Student"
-                              ? 300000
+                              ? studentDef
                               : currentRole == "Assistant"
-                              ? 200000
-                              : 1000000)}
+                              ? assistantDef
+                              : teacherDef)}
                           đ
-                          {wage[monthYear].paid
-                            ? currentRole == "Student"
-                              ? " (Đã nộp)"
-                              : " (Đã nhận)"
-                            : currentRole == "Student"
-                            ? " (Chưa nộp)"
-                            : " (Chưa nhận)"}
+                          - <i>{wage[monthYear].paid}</i>
                         </p>
                       </WageItem>
                     </Grid>
@@ -668,12 +710,17 @@ const UserDetails = () => {
                       Nhận xét
                     </Typography>
                     <Grid container spacing={2}>
-                      <Grid item xs={6}>
                         {commentsList.length > 0 ? (
                           commentsList.map((item, index) => {
                             return (
+                              <Grid item xs={12} sm={6}>
                               <CommentItem style={{ width: "100%" }}>
-                                <p>Từ: {getTeacherNameById(item.userId)}</p>
+                                <p>
+                                  Từ:{" "}
+                                  {getTeacherNameById(item.userId) != "Unknown"
+                                    ? getTeacherNameById(item.userId)
+                                    : getAssistantNameById(item.userId)}
+                                </p>
                                 <p>{item.comment}</p>
                                 <p
                                   style={{
@@ -681,9 +728,10 @@ const UserDetails = () => {
                                     textAlign: "right",
                                   }}
                                 >
-                                  {dayjs(item.createdAt).format("DD/MM/YYYY HH:mm")}
+                                  {dayjs(item.createdAt).format("DD/MM/YYYY")}
                                 </p>
                               </CommentItem>
+                              </Grid>
                             );
                           })
                         ) : (
@@ -698,7 +746,6 @@ const UserDetails = () => {
                             Chưa có nhận xét
                           </Typography>
                         )}
-                      </Grid>
                     </Grid>
                   </>
                 ) : null}
@@ -763,7 +810,7 @@ const UserDetails = () => {
                   </LocalizationProvider>
                   <Grid container style={{ marginTop: "15rem" }}>
                     <Grid item xs={12}>
-                      <Grid container style={{marginTop: "10px"}}>
+                      <Grid container>
                         <Typography
                           variant="h5"
                           gutterBottom
@@ -849,8 +896,8 @@ const UserDetails = () => {
                             }}
                           >
                             {currentRole == "Student"
-                              ? "Lịch học tiếp theo trong tháng"
-                              : "Lịch dạy tiếp theo trong tháng"}
+                              ? "Lịch học tiếp theo."
+                              : "Lịch dạy tiếp theo."}
                           </Typography>
                           {nextSchedule.length > 0 ? (
                             <>

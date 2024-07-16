@@ -151,7 +151,6 @@ const EditSchedule = () => {
   const submitHandler = event => {
     event.preventDefault();
     setLoader(true);
-    console.log(fields);
     dispatch(updateSchedule(id, fields));
   };
 

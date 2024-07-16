@@ -84,6 +84,8 @@ const EditAssistant = () => {
     assistantDetails.avatar ? assistantDetails.avatar.split("/").pop() : ""
   );
 
+  const [urlImage, setUrlImage] = useState("");
+
   useEffect(() => {
     if (assistantDetails && assistantDetails._id === id) {
       setName(assistantDetails.name);
@@ -112,8 +114,12 @@ const EditAssistant = () => {
 
   const handleFileChange = event => {
     const file = event.target.files[0];
-    setAvatar(file);
-    setAvatarName(file ? file.name : "");
+    if (file) {
+      console.log(file);
+      setAvatar(file);
+      setAvatarName(file ? file.name : "");
+      setUrlImage(file ? URL.createObjectURL(file) : "");
+    }
   };
 
   const submitHandler = event => {
@@ -248,12 +254,15 @@ const EditAssistant = () => {
                   <InputLabel>Ảnh</InputLabel>
                   <Button variant="contained" component="label" fullWidth>
                     Chọn ảnh
-                    <input type="file" hidden onChange={handleFileChange} />
+                    <input type="file" hidden onChange={handleFileChange} accept="image/*" />
                   </Button>
                   {avatarName && (
+                    <>
                     <Typography variant="body2" mt={2}>
                       {avatarName}
                     </Typography>
+                    <img src={urlImage} alt="avatar" style={{width: "500px"}}></img>
+                    </>
                   )}
                 </Grid>
               </Grid>

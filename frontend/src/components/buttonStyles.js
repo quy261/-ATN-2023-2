@@ -110,7 +110,6 @@ export const LightWhiteButton = styled(LightOrangeButton)`
       background-color: #ddd;
     }
   }
-
 `;
 
 export const GreenButton = styled(Button)`

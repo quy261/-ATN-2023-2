@@ -6,7 +6,6 @@ import {
   getFailed,
   getError,
   stuffDone,
-  getCommentSuccess,
 } from "./studentSlice";
 
 export const getAllStudents = id => async dispatch => {

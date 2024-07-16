@@ -8,7 +8,7 @@
   "phone": "0123456789",
   "email": "nguyenvanc@example.com",
   "password": "$2b$10$ReyDu27oF/EQB3qC75G/v.CS.1ojgCzftyaeVPG7/F1FP0wJv6OnS",
-  "avatar": "/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247047395.png",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717247047395.png",
   "role": "Teacher",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
@@ -22,18 +22,18 @@
     "$oid": "665b1bf5ee97a2e082f946a1"
   },
   "name": "Trần Thị Bình",
-  "sclassName": "Kỹ sư",
+  "sclassName": "Thạc sĩ",
   "dob": "1993-05-10T17:00:00.000Z",
   "phone": "0987654321",
   "email": "tranb@example.com",
   "password": "$2b$10$5I0O6pYtPFlwP4qq2GpAIOGYmrMvG4yVtYqLW1YHGEdH69T/sRrju",
-  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247018307.png",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717247018307.png",
   "role": "Teacher",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
   },
   "updatedAt": {
-    "$date": "2024-06-02T12:30:41.073Z"
+    "$date": "2024-06-30T10:09:56.494Z"
   }
 },
 {
@@ -46,13 +46,13 @@
   "phone": "0123654789",
   "email": "phamvd@example.com",
   "password": "$2b$10$yG0OTxBYR1nU7h4LVuUme.p9WFN1S5N0kLBUyfYn9mIbEssJTIsAa",
-  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247150188.png",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717247150188.png",
   "role": "Teacher",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
   },
   "updatedAt": {
-    "$date": "2024-06-02T12:31:02.876Z"
+    "$date": "2024-06-30T10:13:46.685Z"
   }
 },
 {
@@ -65,7 +65,7 @@
   "phone": "0123654789",
   "email": "led@example.com",
   "password": "$2b$10$PxVrtMWSnbiMknvkJBV9qeM6ve2fqSb95PwtoGVjLqVXpdFdS/Z5e",
-  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247119446.png",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717247119446.png",
   "role": "Teacher",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
@@ -84,7 +84,7 @@
   "phone": "0123456789",
   "email": "nguyenthie@example.com",
   "password": "$2b$10$YeN9o65rghjwgFpBVYnrWeUkUP0M0fezCaYyGrjEFolZ3lc7LG3Um",
-  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247222348.png",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717247222348.png",
   "role": "Teacher",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
@@ -103,7 +103,7 @@
   "phone": "0123456789",
   "email": "hoangvf@example.com",
   "password": "$2b$10$.RTuLe.6Oqeits7fW3gOAO6k7MfRkr58IKS4UGsKpzbpqC1g3CdDG",
-  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247254552.png",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717247254552.png",
   "role": "Teacher",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
@@ -122,7 +122,7 @@
   "phone": "0123654789",
   "email": "tranvg@example.com",
   "password": "$2b$10$0/ZhIAlGpwSo/PMbh6.ibOWwbv2ylIpv/2YvTaSL7NjWUIjyfJWYW",
-  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247172761.png",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717247172761.png",
   "role": "Teacher",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
@@ -141,7 +141,7 @@
   "phone": "0123456789",
   "email": "phamvg@example.com",
   "password": "$2b$10$SsRuptu3FqWykKINxgeoYuiiM7ckIgTMOVARx6GnovONm2gnxGHX6",
-  "avatar":"/Users/macos/Desktop/tae-project/frontend/public/avatar/1717247192706.png",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717247192706.png",
   "role": "Teacher",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"

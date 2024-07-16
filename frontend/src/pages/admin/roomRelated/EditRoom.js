@@ -295,7 +295,7 @@ const EditRoom = () => {
                 {loader ? (
                   <CircularProgress size={24} color="inherit" />
                 ) : (
-                  "TẠO"
+                  "CẬP NHẬT"
                 )}
               </LightOrangeButton>
               <LightWhiteButton fullWidth onClick={() => navigate(-1)}>

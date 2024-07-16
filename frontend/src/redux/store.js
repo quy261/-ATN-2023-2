@@ -9,6 +9,7 @@ import { roomReducer } from "./roomRelated/roomSlice";
 import { scheduleReducer } from "./scheduleRelated/scheduleSlice";
 import { adminReducer } from "./accountRelated/accountSlice";
 import { moneyReducer } from "./moneyRelated/moneySlice";
+import { moneyDefReducer } from "./moneyDefRelated/moneyDefSlice";
 import { commentReducer } from "./commentRelated/commentSlice";
 
 const store = configureStore({
@@ -22,6 +23,7 @@ const store = configureStore({
     schedule: scheduleReducer,
     admin: adminReducer,
     money: moneyReducer,
+    moneyDef: moneyDefReducer,
     comment: commentReducer,
   },
 });

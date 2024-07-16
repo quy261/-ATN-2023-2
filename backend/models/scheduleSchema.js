@@ -9,8 +9,11 @@ const absenceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  reason: {
+    type: String,
+    required: false,
+  },
 });
-
 
 const scheduleSchema = new mongoose.Schema(
   {
@@ -60,4 +63,3 @@ const scheduleSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("schedule", scheduleSchema);
-

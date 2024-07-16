@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Avatar,
@@ -8,9 +8,8 @@ import {
   ListItemIcon,
   Divider,
   IconButton,
-  Tooltip,
 } from "@mui/material";
-import { Settings, Logout } from "@mui/icons-material";
+import { Logout } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -21,8 +20,7 @@ const AccountMenu = () => {
 
   const open = Boolean(anchorEl);
 
-  const { currentRole, currentUser } = useSelector(state => state.user);
-
+  const { currentUser } = useSelector(state => state.user);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);

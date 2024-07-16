@@ -18,7 +18,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import { addStuff, registerUser } from "../../../redux/userRelated/userHandle";
+import { registerUser } from "../../../redux/userRelated/userHandle";
 import { underControl } from "../../../redux/userRelated/userSlice";
 import {
   LightWhiteButton,
@@ -44,7 +44,7 @@ const AddAccount = () => {
 
   const userState = useSelector(state => state.user);
 
-  const { status, currentUser, response, error, tempDetails } = userState;
+  const { status, response, error, tempDetails } = userState;
 
   const [loader, setLoader] = useState(false);
 
@@ -86,7 +86,7 @@ const AddAccount = () => {
       email,
       password,
       role,
-      schoolName: "TAE",
+      schoolName: "HCE",
     };
     setLoader(true);
     dispatch(registerUser(fields, "Admin"));

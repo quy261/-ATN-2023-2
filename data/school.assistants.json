@@ -8,13 +8,13 @@
   "phone": "0123456780",
   "email": "nguyenthilan@example.com",
   "password": "$2b$10$ifSvtlEA2cJ9vR5CKfynIuz2UyvpbicOPdjsw1x5KjRTAnGoVJRD.",
-  "avatar": "null",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1719742722864.png",
   "role": "Assistant",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
   },
   "updatedAt": {
-    "$date": "2024-06-02T17:08:14.130Z"
+    "$date": "2024-06-30T10:18:42.869Z"
   }
 },
 {
@@ -46,13 +46,13 @@
   "phone": "0123654789",
   "email": "phamthithuha@example.com",
   "password": "$2b$10$JdkztfESoMqdTXrYEw.LauQCzb9tzB4lte97ddqwCibiZe1NLHc9W",
-  "avatar": "null",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1717378473956.png",
   "role": "Assistant",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
   },
   "updatedAt": {
-    "$date": "2024-06-02T17:04:17.355Z"
+    "$date": "2024-06-03T01:34:33.965Z"
   }
 },
 {
@@ -122,13 +122,13 @@
   "phone": "0123654789",
   "email": "tranthihuong@example.com",
   "password": "$2b$10$wgbu4KlHKwI5cHArCQwbzOYI17K9DAO0s.h1axia2d1FlEzS8FgNq",
-  "avatar": "null",
+  "avatar": "F:\\tae-project\\frontend\\public\\avatar\\1719742701274.png",
   "role": "Assistant",
   "school": {
     "$oid": "664d64b764ef14d9230c13b8"
   },
   "updatedAt": {
-    "$date": "2024-06-02T17:07:55.639Z"
+    "$date": "2024-06-30T10:18:21.286Z"
   }
 },
 {

@@ -5,7 +5,7 @@
   "name": "665b1a36ee97a2e082f9468a",
   "month": "5/2024",
   "type": "tuition",
-  "amount": "1200000",
+  "amount": "300000",
   "createdAt": {
     "$date": "2024-06-02T09:17:57.711Z"
   },
@@ -43,6 +43,135 @@
   },
   "updatedAt": {
     "$date": "2024-06-02T09:40:15.883Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6677fecb36d26ff23a193c1f"
+  },
+  "name": "665b1a36ee97a2e082f9468f",
+  "month": "6/2024",
+  "type": "tuition",
+  "amount": "1200000",
+  "createdAt": {
+    "$date": "2024-06-23T10:54:03.117Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-23T10:54:03.117Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6678039836d26ff23a193fb4"
+  },
+  "name": "665b1a36ee97a2e082f9468a",
+  "month": "7/2024",
+  "type": "tuition",
+  "amount": "300000",
+  "createdAt": {
+    "$date": "2024-06-23T11:14:32.756Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-23T11:14:32.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "667803c636d26ff23a194026"
+  },
+  "name": "665b1a36ee97a2e082f9468a",
+  "month": "6/2024",
+  "type": "tuition",
+  "amount": "1200000",
+  "createdAt": {
+    "$date": "2024-06-23T11:15:18.262Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-23T11:15:18.262Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "667808a636d26ff23a1940f5"
+  },
+  "name": "665b1e9fee97a2e082f946a9",
+  "month": "5/2024",
+  "type": "wage",
+  "amount": "250000",
+  "createdAt": {
+    "$date": "2024-06-23T11:36:06.709Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-23T11:36:06.709Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6678096836d26ff23a194182"
+  },
+  "name": "665b1bf5ee97a2e082f946a2",
+  "month": "6/2024",
+  "type": "wage",
+  "amount": "2000000",
+  "createdAt": {
+    "$date": "2024-06-23T11:39:20.006Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-23T11:39:20.006Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66780dd836d26ff23a194498"
+  },
+  "name": "665b1a36ee97a2e082f9468b",
+  "month": "7/2024",
+  "type": "tuition",
+  "amount": "300000",
+  "createdAt": {
+    "$date": "2024-06-23T11:58:16.637Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-23T11:58:16.637Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66810c0b325d5e7920dfb338"
+  },
+  "name": "665b1a36ee97a2e082f94688",
+  "month": "6/2024",
+  "type": "tuition",
+  "amount": "1200000",
+  "createdAt": {
+    "$date": "2024-06-30T07:40:59.640Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-30T08:50:55.720Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66810ecb325d5e7920dfb42b"
+  },
+  "name": "665b1a36ee97a2e082f94688",
+  "month": "5/2024",
+  "type": "tuition",
+  "image": "F:\\tae-project\\frontend\\public\\image\\1719733963850.jpg",
+  "amount": "300000",
+  "createdAt": {
+    "$date": "2024-06-30T07:52:43.855Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-30T07:52:43.855Z"
   },
   "__v": 0
 }]

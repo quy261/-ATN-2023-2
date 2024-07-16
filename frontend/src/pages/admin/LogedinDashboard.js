@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -28,6 +28,7 @@ import ShowStudents from "./studentRelated/ShowStudents";
 import AddStudent from "./studentRelated/AddStudent";
 import StudentDetails from "./studentRelated/StudentDetails";
 import EditStudent from "./studentRelated/EditStudent";
+import AddComment from "./studentRelated/AddComment";
 
 import ShowTeachers from "./teacherRelated/ShowTeachers";
 import AddTeacher from "./teacherRelated/AddTeacher";
@@ -52,6 +53,8 @@ import EditRoom from "./roomRelated/EditRoom";
 import ShowSchedules from "./scheduleRelated/ShowSchedules";
 import ScheduleDetails from "./scheduleRelated/ScheduleDetails";
 import EditSchedule from "./scheduleRelated/EditSchedule";
+import EditContentSchedule from "./scheduleRelated/EditContentSchedule";
+import EditAttendanceSchedule from "./scheduleRelated/EditAttendaceSchedule";
 
 import ShowAccounts from "./accountRelated/ShowAccounts";
 import AddAccount from "./accountRelated/AddAccount";
@@ -60,12 +63,16 @@ import EditAccount from "./accountRelated/EditAccount";
 import ShowMoneys from "./moneyRelated/ShowMoneys";
 import AddMoneyWage from "./moneyRelated/AddMoneyWage";
 import AddMoneyTuition from "./moneyRelated/AddMoneyTuition";
+import EditMoneyDef from "./moneyRelated/EditMoneyDef";
+import AddMoneyTuitionList from "./moneyRelated/AddMoneyTuitionList";
+import AddMoneyWageList from "./moneyRelated/AddMoneyWageList";
+import AddTuition from "./moneyRelated/AddTuition";
+
 import UserDetails from "./UserDetails";
-import AddComment from "./studentRelated/AddComment";
-import EditContentSchedule from "./scheduleRelated/EditContentSchedule";
-import EditAttendanceSchedule from "./scheduleRelated/EditAttendaceSchedule";
 
 const LogedinDashboard = () => {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -96,17 +103,19 @@ const LogedinDashboard = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
+            <MyTypography
               component="h1"
               variant="h5"
               color="inherit"
               noWrap
               sx={{ flexGrow: 1 }}
+              onClick={() => navigate("/")}
+              style={{ cursor: "pointer" }}
             >
               {currentRole == "Admin" || currentRole == "Accountant"
-                ? "TAE - PHÂN HỆ QUẢN LÝ"
-                : "TAE - PHÂN HỆ NGƯỜI DÙNG"}
-            </Typography>
+                ? "HCE - PHÂN HỆ QUẢN LÝ"
+                : "HCE - PHÂN HỆ NGƯỜI DÙNG"}
+            </MyTypography>
             <AccountMenu />
           </Toolbar>
         </AppBar>
@@ -141,7 +150,7 @@ const LogedinDashboard = () => {
             {/* Class */}
             <Route path="/Admin/classes" element={<ShowClasses />} />
             <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
-            {currentRole == "Admin" ? (
+            {currentRole == "Admin" || currentRole == "Accountant"? (
               <>
                 <Route path="/Admin/classadd" element={<AddClass />} />
                 <Route path="/Admin/classedit/:id" element={<EditClass />} />
@@ -158,11 +167,12 @@ const LogedinDashboard = () => {
               />
             ) : null}
 
+            // sửa chỗ này --
             {/* Student */}
             <Route path="/Admin/students" element={<ShowStudents />} />
-            <Route path="/Admin/student/:id" element={<StudentDetails />} />
-            {currentRole == "Admin" ? (
+            {currentRole == "Admin" || currentRole == "Accountant" ? (
               <>
+                <Route path="/Admin/student/:id" element={<StudentDetails />} />
                 <Route
                   path="/Admin/studentadd"
                   element={<AddStudent situation="Student" />}
@@ -218,8 +228,22 @@ const LogedinDashboard = () => {
                   path="/Admin/moneyaddtuition"
                   element={<AddMoneyTuition />}
                 />
+                <Route
+                  path="/Admin/moneyaddtuitionlist"
+                  element={<AddMoneyTuitionList />}
+                />
                 <Route path="/Admin/moneyaddwage" element={<AddMoneyWage />} />
+                <Route
+                  path="/Admin/moneyaddwagelist"
+                  element={<AddMoneyWageList />}
+                />
+                <Route
+                  path="/Admin/moneydefedit/:id"
+                  element={<EditMoneyDef />}
+                />
               </>
+            ) : currentRole == "Student" ? (
+              <Route path="/Admin/studentaddtuition" element={<AddTuition />} />
             ) : null}
 
             {/* Schedule */}
@@ -289,5 +313,11 @@ const styles = {
 const MyDrawer = styled(Drawer)`
   nav {
     padding: 0 !important;
+  }
+`;
+
+const MyTypography = styled(Typography)`
+  &:hover {
+    opacity: 0.8;
   }
 `;

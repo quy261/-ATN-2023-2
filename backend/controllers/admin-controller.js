@@ -7,12 +7,9 @@ const Student = require("../models/studentSchema.js");
 
 const adminRegister = async (req, res) => {
   const { name, email, password, role, schoolName } = req.body;
-
   try {
     const salt = await bcrypt.genSalt(10);
-
     const hashedPass = await bcrypt.hash(password, salt);
-
     const admin = new Admin({
       name,
       email,
@@ -20,18 +17,16 @@ const adminRegister = async (req, res) => {
       role,
       schoolName,
     });
-
     const existingAdminByEmail = await Admin.findOne({ email: email });
-
     if (existingAdminByEmail) {
       res.send({ message: "Email đã được sử dụng" });
     } else {
       let result = await admin.save();
       result.password = undefined;
+      console.log(result);
       res.send(result);
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 };
@@ -43,6 +38,7 @@ const adminLogIn = async (req, res) => {
       const isMatch = await bcrypt.compare(req.body.password, admin.password);
       if (isMatch) {
         admin.password = undefined;
+        console.log(admin);
         res.send(admin);
       } else {
         res.send({ message: "Sai mật khẩu" });

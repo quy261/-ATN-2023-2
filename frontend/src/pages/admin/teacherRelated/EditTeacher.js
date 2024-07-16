@@ -110,6 +110,8 @@ const EditTeacher = () => {
 
   const [phoneError, setPhoneError] = useState(false);
 
+  const [urlImage, setUrlImage] = useState("");
+
   const handlePhoneChange = event => {
     const phoneValue = event.target.value;
     setPhone(phoneValue);
@@ -120,8 +122,8 @@ const EditTeacher = () => {
   const handleFileChange = event => {
     const file = event.target.files[0];
     setAvatar(file);
-    console.log(file);
     setAvatarName(file ? file.name : "");
+    setUrlImage(file ? URL.createObjectURL(file) : "");
   };
 
   const submitHandler = event => {
@@ -256,12 +258,15 @@ const EditTeacher = () => {
                   <InputLabel>Ảnh</InputLabel>
                   <Button variant="contained" component="label" fullWidth>
                     Chọn ảnh
-                    <input type="file" hidden onChange={handleFileChange} />
+                    <input type="file" hidden onChange={handleFileChange} accept="image/*"/>
                   </Button>
                   {avatarName && (
+                    <>
                     <Typography variant="body2" mt={2}>
                       {avatarName}
                     </Typography>
+                    <img src={urlImage} alt="" style={{width: "500px"}}></img>
+                    </>
                   )}
                 </Grid>
               </Grid>

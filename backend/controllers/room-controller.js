@@ -1,7 +1,6 @@
 const Room = require("../models/roomSchema.js");
 
 const roomCreate = async (req, res) => {
-  console.log(req.body);
   const {
     name,
     capacity,
@@ -12,7 +11,6 @@ const roomCreate = async (req, res) => {
     role,
     adminID,
   } = req.body;
-
   try {
     const room = new Room({
       name,
@@ -24,12 +22,10 @@ const roomCreate = async (req, res) => {
       role,
       school: adminID,
     });
-
     const existingRoomByName = await Room.findOne({
       name: name,
       location: location,
     });
-
     if (existingRoomByName) {
       res.send({ message: "Tên phòng học đã được sử dụng" });
     } else {
@@ -84,20 +80,16 @@ const updateRoom = async (req, res) => {
       adminID,
     } = req.body;
     const existingRoom = await Room.findById(roomId);
-
     if (!existingRoom) {
       return res.status(404).send({ message: "Lớp học không tồn tại" });
     }
-
     const existingRoomByName = await Room.findOne({
       name: name,
       location: location,
     });
-
     if (existingRoomByName && existingRoomByName._id.toString() !== roomId) {
       return res.status(405).send({ message: "Tên phòng học đã được sử dụng" });
     }
-
     existingRoom.name = name;
     existingRoom.capacity = capacity;
     existingRoom.location = location;
@@ -105,7 +97,6 @@ const updateRoom = async (req, res) => {
     existingRoom.availability = availability;
     existingRoom.schedule = schedule;
     existingRoom.school = adminID;
-
     const updatedRoom = await existingRoom.save();
     return res.send(updatedRoom);
   } catch (err) {
@@ -121,11 +112,9 @@ const updateRoomSubject = async (req, res) => {
       { teachSubject },
       { new: true }
     );
-
     await Subject.findByIdAndUpdate(teachSubject, {
       room: updatedRoom._id,
     });
-
     res.send(updatedRoom);
   } catch (error) {
     res.status(500).json(error);
@@ -135,12 +124,10 @@ const updateRoomSubject = async (req, res) => {
 const deleteRoom = async (req, res) => {
   try {
     const deletedRoom = await Room.findByIdAndDelete(req.params.id);
-
     await Subject.updateOne(
       { room: deletedRoom._id, room: { $exists: true } },
       { $unset: { room: 1 } }
     );
-
     res.send(deletedRoom);
   } catch (error) {
     res.status(500).json(error);
@@ -150,16 +137,12 @@ const deleteRoom = async (req, res) => {
 const deleteRooms = async (req, res) => {
   try {
     const deletionResult = await Room.deleteMany({ school: req.params.id });
-
     const deletedCount = deletionResult.deletedCount || 0;
-
     if (deletedCount === 0) {
       res.send({ message: "No rooms found to delete" });
       return;
     }
-
     const deletedRooms = await Room.find({ school: req.params.id });
-
     await Subject.updateMany(
       {
         room: { $in: deletedRooms.map(room => room._id) },
@@ -167,7 +150,6 @@ const deleteRooms = async (req, res) => {
       },
       { $unset: { room: "" }, $unset: { room: null } }
     );
-
     res.send(deletionResult);
   } catch (error) {
     res.status(500).json(error);
@@ -179,16 +161,12 @@ const deleteRoomsByClass = async (req, res) => {
     const deletionResult = await Room.deleteMany({
       sclassName: req.params.id,
     });
-
     const deletedCount = deletionResult.deletedCount || 0;
-
     if (deletedCount === 0) {
       res.send({ message: "No rooms found to delete" });
       return;
     }
-
     const deletedRooms = await Room.find({ sclassName: req.params.id });
-
     await Subject.updateMany(
       {
         room: { $in: deletedRooms.map(room => room._id) },
@@ -196,7 +174,6 @@ const deleteRoomsByClass = async (req, res) => {
       },
       { $unset: { room: "" }, $unset: { room: null } }
     );
-
     res.send(deletionResult);
   } catch (error) {
     res.status(500).json(error);
@@ -205,24 +182,19 @@ const deleteRoomsByClass = async (req, res) => {
 
 const roomAttendance = async (req, res) => {
   const { status, date } = req.body;
-
   try {
     const room = await Room.findById(req.params.id);
-
     if (!room) {
       return res.send({ message: "Room not found" });
     }
-
     const existingAttendance = room.attendance.find(
       a => a.date.toDateString() === new Date(date).toDateString()
     );
-
     if (existingAttendance) {
       existingAttendance.status = status;
     } else {
       room.attendance.push({ date, status });
     }
-
     const result = await room.save();
     return res.send(result);
   } catch (error) {

@@ -3,14 +3,9 @@ import {
   getRequest,
   getSuccess,
   getDetailsSuccess,
-  getFailed,
   getError,
   getStudentsSuccess,
-  detailsSuccess,
   getFailedTwo,
-  getSubjectsSuccess,
-  getSubDetailsSuccess,
-  getSubDetailsRequest,
 } from "./scheduleSlice";
 
 export const getAllSchedules = (id, address) => async dispatch => {

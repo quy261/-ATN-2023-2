@@ -1,11 +1,13 @@
 [{
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946b7"
+  },
   "sclass": "665306a66044b90b005cc176",
   "room": "665ab58bb95c9e50b1af9316",
   "teacher": "665b1bf5ee97a2e082f946a2",
   "assistant": "665b1e9fee97a2e082f946aa",
-  "startTime": "2024-07-20T13:00:00.000Z",
-  "endTime": "2024-07-20T15:00:00.000Z",
+  "startTime": "2024-05-20T13:00:00.000Z",
+  "endTime": "2024-05-20T15:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -34,13 +36,15 @@
   }
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946b8"
+  },
   "sclass": "6659f42c8f60e6e248d77292",
   "room": "665ac4c582782ced5954e78f",
   "teacher": "665b1bf5ee97a2e082f946a5",
   "assistant": "665b1e9fee97a2e082f946ae",
-  "startTime": "2024-07-22T15:00:00.000Z",
-  "endTime": "2024-07-22T17:00:00.000Z",
+  "startTime": "2024-05-22T15:00:00.000Z",
+  "endTime": "2024-05-22T17:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -50,13 +54,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946b9"
+  },
   "sclass": "6652ebc4c7366660f62152bc",
   "room": "66559603d4714d1a2b8e6f1d",
   "teacher": "665b1bf5ee97a2e082f946a6",
   "assistant": "665b1e9fee97a2e082f946af",
-  "startTime": "2024-07-24T17:00:00.000Z",
-  "endTime": "2024-07-24T19:00:00.000Z",
+  "startTime": "2024-05-24T17:00:00.000Z",
+  "endTime": "2024-05-24T19:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -66,13 +72,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946ba"
+  },
   "sclass": "6659f44b8f60e6e248d772a5",
   "room": "6655951e30d1cbd00c669e6f",
   "teacher": "665b1bf5ee97a2e082f946a7",
   "assistant": "665b1e9fee97a2e082f946b0",
-  "startTime": "2024-07-27T13:00:00.000Z",
-  "endTime": "2024-07-27T15:00:00.000Z",
+  "startTime": "2024-05-27T13:00:00.000Z",
+  "endTime": "2024-05-27T15:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -82,13 +90,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946bb"
+  },
   "sclass": "665306a66044b90b005cc176",
   "room": "665ab58bb95c9e50b1af9316",
   "teacher": "665b1bf5ee97a2e082f946a0",
   "assistant": "665b1e9fee97a2e082f946a9",
-  "startTime": "2024-07-29T15:00:00.000Z",
-  "endTime": "2024-07-29T17:00:00.000Z",
+  "startTime": "2024-05-29T15:00:00.000Z",
+  "endTime": "2024-05-29T17:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -102,13 +112,15 @@
   }
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946bc"
+  },
   "sclass": "6659f42c8f60e6e248d77292",
   "room": "665ac4c582782ced5954e78f",
   "teacher": "665b1bf5ee97a2e082f946a1",
   "assistant": "665b1e9fee97a2e082f946ab",
-  "startTime": "2024-07-30T17:00:00.000Z",
-  "endTime": "2024-07-30T19:00:00.000Z",
+  "startTime": "2024-05-30T17:00:00.000Z",
+  "endTime": "2024-05-30T19:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -118,13 +130,15 @@
   "linkZoom": ""
 },
 {
- 
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946bd"
+  },
   "sclass": "6652ebc4c7366660f62152bc",
   "room": "66559603d4714d1a2b8e6f1d",
   "teacher": "665b1bf5ee97a2e082f946a3",
   "assistant": "665b1e9fee97a2e082f946ac",
-  "startTime": "2024-07-02T13:00:00.000Z",
-  "endTime": "2024-07-02T15:00:00.000Z",
+  "startTime": "2024-06-02T13:00:00.000Z",
+  "endTime": "2024-06-02T15:00:00.000Z",
   "school": {
     "$oid": "665b222c6127403bcb13e26f"
   },
@@ -137,13 +151,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946be"
+  },
   "sclass": "6659f44b8f60e6e248d772a5",
   "room": "6655951e30d1cbd00c669e6f",
   "teacher": "665b1bf5ee97a2e082f946a4",
   "assistant": "665b1e9fee97a2e082f946ad",
-  "startTime": "2024-07-03T13:00:00.000Z",
-  "endTime": "2024-07-03T15:00:00.000Z",
+  "startTime": "2024-06-03T13:00:00.000Z",
+  "endTime": "2024-06-03T15:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -153,13 +169,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946bf"
+  },
   "sclass": "665306a66044b90b005cc176",
   "room": "665ab58bb95c9e50b1af9316",
   "teacher": "665b1bf5ee97a2e082f946a2",
   "assistant": "665b1e9fee97a2e082f946aa",
-  "startTime": "2024-07-05T15:00:00.000Z",
-  "endTime": "2024-07-05T17:00:00.000Z",
+  "startTime": "2024-06-05T15:00:00.000Z",
+  "endTime": "2024-06-05T17:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -169,13 +187,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c0"
+  },
   "sclass": "6659f42c8f60e6e248d77292",
   "room": "665ac4c582782ced5954e78f",
   "teacher": "665b1bf5ee97a2e082f946a5",
   "assistant": "665b1e9fee97a2e082f946ae",
-  "startTime": "2024-07-07T17:00:00.000Z",
-  "endTime": "2024-07-07T19:00:00.000Z",
+  "startTime": "2024-06-07T17:00:00.000Z",
+  "endTime": "2024-06-07T19:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -185,29 +205,37 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c1"
+  },
   "sclass": "6652ebc4c7366660f62152bc",
   "room": "66559603d4714d1a2b8e6f1d",
   "teacher": "665b1bf5ee97a2e082f946a6",
   "assistant": "665b1e9fee97a2e082f946af",
-  "startTime": "2024-07-10T13:00:00.000Z",
-  "endTime": "2024-07-10T15:00:00.000Z",
+  "startTime": "2024-06-09T09:00:00.000Z",
+  "endTime": "2024-06-09T11:00:00.000Z",
   "school": {
-    "$oid": "66594b1344a31d056007ce08"
+    "$oid": "665b22986127403bcb13e27e"
   },
   "absences": [],
   "content": "",
   "linkFile": "",
-  "linkZoom": ""
+  "linkZoom": "",
+  "__v": 2,
+  "updatedAt": {
+    "$date": "2024-06-09T09:56:55.240Z"
+  }
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c2"
+  },
   "sclass": "6659f44b8f60e6e248d772a5",
   "room": "6655951e30d1cbd00c669e6f",
   "teacher": "665b1bf5ee97a2e082f946a7",
   "assistant": "665b1e9fee97a2e082f946b0",
-  "startTime": "2024-07-12T13:00:00.000Z",
-  "endTime": "2024-07-12T15:00:00.000Z",
+  "startTime": "2024-06-12T13:00:00.000Z",
+  "endTime": "2024-06-12T15:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -217,13 +245,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c3"
+  },
   "sclass": "665306a66044b90b005cc176",
   "room": "665ab58bb95c9e50b1af9316",
   "teacher": "665b1bf5ee97a2e082f946a0",
   "assistant": "665b1e9fee97a2e082f946a9",
-  "startTime": "2024-07-14T15:00:00.000Z",
-  "endTime": "2024-07-14T17:00:00.000Z",
+  "startTime": "2024-06-14T15:00:00.000Z",
+  "endTime": "2024-06-14T17:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -236,13 +266,15 @@
   }
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c4"
+  },
   "sclass": "6659f42c8f60e6e248d77292",
   "room": "665ac4c582782ced5954e78f",
   "teacher": "665b1bf5ee97a2e082f946a1",
   "assistant": "665b1e9fee97a2e082f946aa",
-  "startTime": "2024-07-17T17:00:00.000Z",
-  "endTime": "2024-07-17T19:00:00.000Z",
+  "startTime": "2024-06-17T17:00:00.000Z",
+  "endTime": "2024-06-17T19:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -252,13 +284,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c5"
+  },
   "sclass": "6652ebc4c7366660f62152bc",
   "room": "66559603d4714d1a2b8e6f1d",
   "teacher": "665b1bf5ee97a2e082f946a2",
   "assistant": "665b1e9fee97a2e082f946ab",
-  "startTime": "2024-07-19T13:00:00.000Z",
-  "endTime": "2024-07-19T15:00:00.000Z",
+  "startTime": "2024-06-19T13:00:00.000Z",
+  "endTime": "2024-06-19T15:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -269,24 +303,34 @@
       "_id": {
         "$oid": "665c9bbbc91ee5cb0b81317c"
       }
+    },
+    {
+      "id": "665b1a36ee97a2e082f94688",
+      "asked": "true",
+      "reason": "Em bị sốt cao ạ.\nEm hứa sẽ chép bài đầy đủ",
+      "_id": {
+        "$oid": "666c4e8022a768fe4bd32cdf"
+      }
     }
   ],
   "content": "",
   "linkFile": "",
   "linkZoom": "",
-  "__v": 5,
+  "__v": 18,
   "updatedAt": {
-    "$date": "2024-06-02T18:18:47.429Z"
+    "$date": "2024-06-14T14:06:56.252Z"
   }
 },
 {
- 
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c6"
+  },
   "sclass": "6659f44b8f60e6e248d772a5",
   "room": "6655951e30d1cbd00c669e6f",
   "teacher": "665b1bf5ee97a2e082f946a3",
   "assistant": "665b1e9fee97a2e082f946ac",
-  "startTime": "2024-07-21T13:00:00.000Z",
-  "endTime": "2024-07-21T15:00:00.000Z",
+  "startTime": "2024-06-21T13:00:00.000Z",
+  "endTime": "2024-06-21T15:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -296,13 +340,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c7"
+  },
   "sclass": "665306a66044b90b005cc176",
   "room": "665ab58bb95c9e50b1af9316",
   "teacher": "665b1bf5ee97a2e082f946a4",
   "assistant": "665b1e9fee97a2e082f946ad",
-  "startTime": "2024-07-24T15:00:00.000Z",
-  "endTime": "2024-07-24T17:00:00.000Z",
+  "startTime": "2024-06-24T15:00:00.000Z",
+  "endTime": "2024-06-24T17:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -312,13 +358,15 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c8"
+  },
   "sclass": "6659f42c8f60e6e248d77292",
   "room": "665ac4c582782ced5954e78f",
   "teacher": "665b1bf5ee97a2e082f946a5",
   "assistant": "665b1e9fee97a2e082f946ae",
-  "startTime": "2024-07-26T17:00:00.000Z",
-  "endTime": "2024-07-26T19:00:00.000Z",
+  "startTime": "2024-06-26T17:00:00.000Z",
+  "endTime": "2024-06-26T19:00:00.000Z",
   "school": {
     "$oid": "66594b1344a31d056007ce08"
   },
@@ -328,7 +376,9 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946c9"
+  },
   "sclass": "6652ebc4c7366660f62152bc",
   "room": "66559603d4714d1a2b8e6f1d",
   "teacher": "665b1bf5ee97a2e082f946a6",
@@ -341,10 +391,16 @@
   "absences": [],
   "content": "",
   "linkFile": "",
-  "linkZoom": ""
+  "linkZoom": "",
+  "__v": 8,
+  "updatedAt": {
+    "$date": "2024-06-11T18:06:46.656Z"
+  }
 },
 {
-
+  "_id": {
+    "$oid": "665b21b4ee97a2e082f946ca"
+  },
   "sclass": "6659f44b8f60e6e248d772a5",
   "room": "6655951e30d1cbd00c669e6f",
   "teacher": "665b1bf5ee97a2e082f946a7",
@@ -360,7 +416,9 @@
   "linkZoom": ""
 },
 {
-
+  "_id": {
+    "$oid": "665cbbce171db52512fe012e"
+  },
   "sclass": "6652ebc4c7366660f62152bc",
   "room": "66559603d4714d1a2b8e6f1d",
   "teacher": "665b1bf5ee97a2e082f946a4",

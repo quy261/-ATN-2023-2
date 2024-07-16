@@ -25,7 +25,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 const SideBar = () => {
   const location = useLocation();
 
-  const { currentRole } = useSelector((state) => state.user);
+  const { currentRole } = useSelector(state => state.user);
 
   return (
     <>

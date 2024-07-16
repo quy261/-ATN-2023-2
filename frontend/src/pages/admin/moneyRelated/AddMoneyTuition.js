@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Popup from "../../../components/Popup";
 import { underControl } from "../../../redux/userRelated/userSlice";
-import { getAllSclasses } from "../../../redux/sclassRelated/sclassHandle";
 
 import {
   Box,
@@ -12,7 +11,6 @@ import {
   Stack,
   TextField,
   Grid,
-  Typography,
   FormControl,
   InputLabel,
   Select,
@@ -25,17 +23,22 @@ import {
   LightOrangeButton,
 } from "../../../components/buttonStyles";
 
-import Classroom from "../../../assets/classroom.webp";
 import { addStuff } from "../../../redux/userRelated/userHandle";
 
 import styled from "styled-components";
 import { getAllStudents } from "../../../redux/studentRelated/studentHandle";
 import {
-  getAllSchedules,
   getSchedulesByStudent,
 } from "../../../redux/scheduleRelated/scheduleHandle";
+import { getAllMoneyDefs } from "../../../redux/moneyDefRelated/moneyDefHandle";
 
 const AddMoneyTuition = () => {
+  const location = useLocation();
+
+  const { item1, item2, studentID } = location.state || {};
+
+  // console.log(item1);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -46,46 +49,32 @@ const AddMoneyTuition = () => {
 
   const adminID = currentUser._id;
 
-  const [tuition, setTuition] = useState([]);
-
   useEffect(() => {
     dispatch(getAllStudents(adminID));
   }, [adminID, dispatch]);
 
-  const { schedulesList } = useSelector(state => state.schedule);
-
-  const [name, setName] = useState("");
-
   useEffect(() => {
-    if (name) {
-      dispatch(getSchedulesByStudent(name));
+    dispatch(getAllMoneyDefs(adminID));
+    if (studentID) {
+      dispatch(getSchedulesByStudent(studentID));
     }
-  }, [name, dispatch]);
+  }, [studentID, dispatch]);
+
+  const { moneyDefsList } = useSelector(state => state.moneyDef);
+
+  const [tuitionDef, setTuitionDef] = useState("");
 
   useEffect(() => {
-    if (schedulesList) {
-      const monthScheduleCount = {};
-      schedulesList.forEach(schedule => {
-        const startTime = new Date(schedule.startTime);
-        const monthYear = `${
-          startTime.getMonth() + 1
-        }/${startTime.getFullYear()}`;
-        if (monthScheduleCount[monthYear]) {
-          monthScheduleCount[monthYear]++;
-        } else {
-          monthScheduleCount[monthYear] = 1;
+    if (moneyDefsList.length > 0) {
+      const tuitionDef = moneyDefsList.find(def => def.type === "Học sinh");
+      if (tuitionDef) {
+        const parsedAmount = parseFloat(tuitionDef.amount);
+        if (!isNaN(parsedAmount)) {
+          setTuitionDef(parsedAmount);
         }
-      });
-      const monthScheduleArray = Object.entries(monthScheduleCount).map(
-        ([month, count]) => ({ month, count })
-      );
-      setTuition(monthScheduleArray);
+      }
     }
-  }, [schedulesList]);
-
-  const [month, setMonth] = useState("");
-
-  const [amount, setAmount] = useState("");
+  }, [moneyDefsList]);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -94,11 +83,12 @@ const AddMoneyTuition = () => {
   const [loader, setLoader] = useState(false);
 
   const fields = {
-    name,
-    month,
-    amount,
+    name: studentID,
+    month: item2,
+    amount: (item1 * tuitionDef).toString(),
     type: "tuition",
     adminID,
+    status: "Đã thanh toán"
   };
 
   const address = "Money";
@@ -106,7 +96,7 @@ const AddMoneyTuition = () => {
   const submitHandler = event => {
     event.preventDefault();
     setLoader(true);
-    console.log(fields);
+
     dispatch(addStuff(fields, address));
   };
 
@@ -146,7 +136,7 @@ const AddMoneyTuition = () => {
                 alignItems: "center",
                 fontSize: "2rem",
                 color: "#f47400",
-                mb: 2,
+                mb: 4,
               }}
             >
               Thêm mới Học phí
@@ -161,9 +151,9 @@ const AddMoneyTuition = () => {
                     <Select
                       labelId="sclass-select-label"
                       id="sclass-select"
-                      value={name}
-                      onChange={event => setName(event.target.value)}
+                      value={studentID}
                       label="Tên học sinh"
+                      disabled
                     >
                       {studentsList.map(student => (
                         <MenuItem key={student._id} value={student._id}>
@@ -179,15 +169,13 @@ const AddMoneyTuition = () => {
                     <Select
                       labelId="sclass-select-label"
                       id="sclass-select"
-                      value={month}
-                      onChange={event => setMonth(event.target.value)}
+                      value={item2}
                       label="Tháng"
+                      disabled
                     >
-                      {tuition.map(loc => (
-                        <MenuItem key={loc.month} value={loc.month}>
-                          {loc.month}
-                        </MenuItem>
-                      ))}
+                      <MenuItem key={item2} value={item2}>
+                        {item2}
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -196,11 +184,9 @@ const AddMoneyTuition = () => {
                     fullWidth
                     label="Số tiền"
                     variant="outlined"
-                    value={amount}
-                    onChange={event => {
-                      setAmount(event.target.value);
-                    }}
+                    value={item1 * tuitionDef}
                     required
+                    disabled
                   />
                 </Grid>
               </Grid>
@@ -216,7 +202,7 @@ const AddMoneyTuition = () => {
                 {loader ? (
                   <CircularProgress size={24} color="inherit" />
                 ) : (
-                  "TẠO"
+                  "THÊM"
                 )}
               </LightOrangeButton>
               <LightWhiteButton fullWidth onClick={() => navigate(-1)}>

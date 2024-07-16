@@ -1,6 +1,6 @@
 import { React, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import dayjs, { Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -14,6 +14,8 @@ import {
   Grid,
   Button,
   Modal,
+  TextField,
+  Tooltip,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -65,11 +67,14 @@ const ScheduleDetails = () => {
 
   const [absentStudentNames, setAbsentStudentNames] = useState([]);
 
+
   const { sclassesList, sclassStudents } = useSelector(state => state.sclass);
 
   const [isAbsent, setIsAbsent] = useState(false);
 
   const [isPast, setIsPast] = useState(false);
+
+  const [isPast2, setIsPast2] = useState(false);
 
   const isAbsentRequested = (absences, userId) => {
     if (!Array.isArray(absences)) {
@@ -92,14 +97,35 @@ const ScheduleDetails = () => {
 
   const [loader, setLoader] = useState(false);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [absenceReason, setAbsenceReason] = useState("");
+
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleToggleAsk = () => {
+    if (!isAbsent && absenceReason.trim() === "") {
+      setErrorMessage("Vui lòng nhập lý do nghỉ học");
+      return;
+    }
     setLoader(true);
     const fields = {
       userId,
       asked: isAbsent,
+      reason: absenceReason,
       type: "asking",
     };
     dispatch(updateSchedule(scheduleDetails._id, fields));
+    setIsModalOpen(false);
+    setErrorMessage("");
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -126,10 +152,12 @@ const ScheduleDetails = () => {
     dispatch(getClassStudents(scheduleDetails.sclass));
     setIsAbsent(isAbsentRequested(scheduleDetails.absences, userId));
     setIsPast(isPastStartTime(scheduleDetails.startTime));
+    setIsPast2(isPastStartTime(scheduleDetails.endTime))
   }, [dispatch, scheduleDetails]);
 
   useEffect(() => {
     const names = [];
+    const names1 = [];
     if (scheduleDetails.absences) {
       scheduleDetails.absences.forEach(absence => {
         const absentStudent = sclassStudents.find(
@@ -137,12 +165,13 @@ const ScheduleDetails = () => {
         );
         if (absentStudent) {
           const status = absence.asked === "true" ? "(P)" : "(KP)";
-          names.push(`${absentStudent.name} ${status}`);
+          const reason = absence.reason || "Không có lý do";
+          names.push({ name: `${absentStudent.name} ${status}`, reason });
         }
       });
     }
     setAbsentStudentNames(names);
-  }, [sclassStudents]);
+  }, [sclassStudents, scheduleDetails]);
 
   const [localSclassesList, setLocalSclassesList] = useState([]);
 
@@ -317,11 +346,10 @@ const ScheduleDetails = () => {
             >
               Sĩ số:{" "}
               <span style={{ color: "black", fontWeight: "400" }}>
-                {sclassStudents
-                  ? `${sclassStudents.length - totalAbsent} / ${
-                      sclassStudents.length
-                    }`
-                  : "Loading..."}
+                {sclassStudents.length != 0 &&
+                  `${sclassStudents.length - totalAbsent} / ${
+                    sclassStudents.length
+                  }`}
               </span>
             </Typography>
             <Typography
@@ -333,17 +361,29 @@ const ScheduleDetails = () => {
                 marginBottom: "1rem",
               }}
             >
-              Vắng:{" "}
-              <span style={{ color: "black", fontWeight: "400" }}>
-                {totalAbsent} {absentStudentNames.join(" ")}
-              </span>
-            </Typography>
+              Vắng:{" "}{totalAbsent}               
+                {absentStudentNames.map((student, index) => (
+                  <p style={{ color: "black", fontWeight: "400", margin: "2px" }}>
+                    <Tooltip
+                    key={index}
+                    title={
+                      <span style={{ fontSize: "1rem" }}>{student.reason}</span>
+                    }
+                    arrow
+                  >
+                    <HoverableSpan>{index + 1}.{" "}{student.name}</HoverableSpan>
+                  </Tooltip>
+                  </p>
+                  
+                ))}
+            </Typography>  
             <Grid
               item
               xs={12}
               style={{ display: "flex", justifyContent: "end" }}
             >
-              {currentRole == "Teacher" || currentRole == "Assistant" ? (
+              {currentRole == "Teacher" ? (
+                isPast && !isPast2 && (
                 <LightWhiteButton
                   variant="contained"
                   onClick={() =>
@@ -353,11 +393,12 @@ const ScheduleDetails = () => {
                   <EditNoteIcon style={{ marginRight: "0.5rem" }} />
                   Điểm danh
                 </LightWhiteButton>
+                )
               ) : currentRole == "Student" ? (
                 !isPast && (
                   <LightWhiteButton
                     variant="contained"
-                    onClick={handleToggleAsk}
+                    onClick={isAbsent ? handleToggleAsk : handleOpenModal}
                   >
                     <EditNoteIcon style={{ marginRight: "0.5rem" }} />
                     {isAbsent ? "Hủy xin nghỉ" : "Xin nghỉ học"}
@@ -385,10 +426,10 @@ const ScheduleDetails = () => {
                 marginBottom: "1rem",
               }}
             >
-              Nội dung buổi học:
-              <p style={{ color: "black", fontWeight: "400" }}>
+              {"Nội dung buổi học: "}
+              <span style={{ color: "#000fff", fontWeight: "400" }}>
                 {scheduleDetails.content}
-              </p>
+              </span>
             </Typography>
             <Typography
               variant="h5"
@@ -399,10 +440,10 @@ const ScheduleDetails = () => {
                 marginBottom: "1rem",
               }}
             >
-              Link học trực tuyến:
-              <p style={{ color: "black", fontWeight: "400" }}>
-                {scheduleDetails.linkZoom}
-              </p>
+              {"Link học trực tuyến: "}
+              <a href={scheduleDetails.linkZoom} target="_blank" rel="noopener noreferrer" style={{ color: "#000fff", fontWeight: "400" }}>
+              {/* {scheduleDetails.linkZoom} */} Tại đây
+              </a>
             </Typography>
             <Typography
               variant="h5"
@@ -413,14 +454,14 @@ const ScheduleDetails = () => {
                 marginBottom: "1rem",
               }}
             >
-              Link tài liệu liên quan:
-              <p style={{ color: "black", fontWeight: "400" }}>
-                {scheduleDetails.linkFile}
-              </p>
+              {"Link tài liệu liên quan: "}
+              <a href={scheduleDetails.linkFile} target="_blank" rel="noopener noreferrer" style={{ color: "#000fff", fontWeight: "400" }}>
+              {/* {scheduleDetails.linkFile} */} Tại đây
+              </a>
             </Typography>
           </Grid>
           <Grid item xs={12} style={{ display: "flex", justifyContent: "end" }}>
-            {currentRole == "Teacher" || currentRole == "Assistant" ? (
+            {currentRole == "Teacher" ? (
               <LightWhiteButton
                 variant="contained"
                 onClick={() =>
@@ -469,6 +510,44 @@ const ScheduleDetails = () => {
           </div>
         </>
       )}
+      <Modal open={isModalOpen} onClose={handleCloseModal}>
+        <Box sx={modalStyle}>
+          <Typography variant="h6">Nhập lý do xin nghỉ học</Typography>
+          <TextField
+            fullWidth
+            label="Lý do"
+            value={absenceReason}
+            onChange={e => setAbsenceReason(e.target.value)}
+            multiline
+            rows={4}
+            variant="outlined"
+            style={{ marginTop: "1rem" }}
+            error={!!errorMessage}
+            helperText={errorMessage}
+          />
+          <div
+            style={{
+              marginTop: "1rem",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button
+              onClick={handleCloseModal}
+              style={{ marginRight: "0.5rem" }}
+            >
+              Hủy
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleToggleAsk}
+            >
+              Gửi
+            </Button>
+          </div>
+        </Box>
+      </Modal>
     </>
   );
 };
@@ -530,3 +609,23 @@ const MyGrid = styled(Grid)`
   border-radius: 15px;
   padding: 2rem;
 `;
+
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const HoverableSpan = styled("span")({
+  marginRight: "0.5rem",
+  cursor: "pointer",
+  "&:hover": {
+    color: "#454545",
+  },
+});

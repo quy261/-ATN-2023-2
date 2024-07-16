@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    schedulesList: [],
-    scheduleStudents: [],
-    scheduleDetails: [],
-    subjectsList: [],
-    subjectDetails: [],
-    loading: false,
-    subloading: false,
-    error: null,
-    response: null,
-    getresponse: null,
+  schedulesList: [],
+  scheduleStudents: [],
+  scheduleDetails: [],
+  subjectsList: [],
+  subjectDetails: [],
+  loading: false,
+  subloading: false,
+  error: null,
+  response: null,
+  getresponse: null,
 };
 
 const scheduleSlice = createSlice({
@@ -82,18 +82,18 @@ const scheduleSlice = createSlice({
 });
 
 export const {
-    getRequest,
-    getSuccess,
-    getDetailsSuccess,
-    getFailed,
-    getError,
-    getStudentsSuccess,
-    getSubjectsSuccess,
-    detailsSuccess,
-    getFailedTwo,
-    resetSubjects,
-    getSubDetailsSuccess,
-    getSubDetailsRequest
+  getRequest,
+  getSuccess,
+  getDetailsSuccess,
+  getFailed,
+  getError,
+  getStudentsSuccess,
+  getSubjectsSuccess,
+  detailsSuccess,
+  getFailedTwo,
+  resetSubjects,
+  getSubDetailsSuccess,
+  getSubDetailsRequest,
 } = scheduleSlice.actions;
 
 export const scheduleReducer = scheduleSlice.reducer;

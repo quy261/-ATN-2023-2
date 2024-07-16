@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Grid, Box, Button } from "@mui/material";
+import { Grid, Box} from "@mui/material";
 import styled from "styled-components";
 import Tooltip from "@mui/material/Tooltip";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -523,14 +523,6 @@ const StyledPaper = styled.div`
   padding: 1.5rem;
   height: fit-content;
   font-family: "Poppins", sans-serif !important;
-`;
-
-const StyledPaperRightAligned = styled(StyledPaper)`
-  text-align: right;
-`;
-
-const StyledPaperCenterAligned = styled(StyledPaper)`
-  text-align: center;
 `;
 
 const StyledBox = styled(Box)`

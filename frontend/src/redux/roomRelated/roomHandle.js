@@ -4,7 +4,6 @@ import {
   getSuccess,
   getFailed,
   getError,
-  postDone,
   doneSuccess,
 } from "./roomSlice";
 

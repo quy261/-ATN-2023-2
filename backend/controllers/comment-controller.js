@@ -25,7 +25,6 @@ const getCommentById = async (req, res) => {
       res.send({ message: "No commentes found" });
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json(err);
   }
 };

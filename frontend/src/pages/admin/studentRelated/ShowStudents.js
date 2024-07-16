@@ -63,9 +63,6 @@ const ShowStudents = () => {
   }, [adminID, dispatch]);
 
   const deleteHandler = (deleteID, address) => {
-    console.log(deleteID);
-    console.log(address);
-
     dispatch(deleteUser(deleteID, address)).then(() => {
       dispatch(getAllStudents(currentUser._id));
     });

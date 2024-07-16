@@ -94,6 +94,8 @@ const AddTeacher = () => {
 
   const [phoneError, setPhoneError] = useState(false);
 
+  const [urlImage, setUrlImage] = useState("");
+
   const handleEmailChange = event => {
     const emailValue = event.target.value;
     setEmail(emailValue);
@@ -118,6 +120,7 @@ const AddTeacher = () => {
     const file = event.target.files[0];
     setAvatar(file);
     setAvatarName(file ? file.name : "");
+    setUrlImage(file ? URL.createObjectURL(file) : "");
   };
 
   const address = "Teacher";
@@ -285,9 +288,13 @@ const AddTeacher = () => {
                     <input type="file" hidden onChange={handleFileChange} />
                   </Button>
                   {avatarName && (
+                    <>
                     <Typography variant="body2" mt={2}>
                       {avatarName}
                     </Typography>
+                    <img src={urlImage} style={{width: "500px"}}></img>
+                    </>
+                    
                   )}
                 </Grid>
               </Grid>

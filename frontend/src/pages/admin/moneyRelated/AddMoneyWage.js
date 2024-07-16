@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Popup from "../../../components/Popup";
 import { underControl } from "../../../redux/userRelated/userSlice";
@@ -38,8 +38,13 @@ import {
 } from "../../../redux/scheduleRelated/scheduleHandle";
 import { getAllTeachers } from "../../../redux/teacherRelated/teacherHandle";
 import { getAllAssistants } from "../../../redux/assistantRelated/assistantHandle";
+import { getAllMoneyDefs } from "../../../redux/moneyDefRelated/moneyDefHandle";
 
 const AddMoneyWage = () => {
+  const location = useLocation();
+
+  const { item1, item2, assistantID, teacherID } = location.state || {};
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -50,51 +55,29 @@ const AddMoneyWage = () => {
 
   const adminID = currentUser._id;
 
-  const [tuition, setTuition] = useState([]);
-
   useEffect(() => {
     dispatch(getAllTeachers(adminID));
     dispatch(getAllAssistants(adminID));
+    dispatch(getAllMoneyDefs(adminID));
   }, [adminID, dispatch]);
 
-  const { schedulesList } = useSelector(state => state.schedule);
+  const { moneyDefsList } = useSelector(state => state.moneyDef);
 
-  const [name, setName] = useState("");
-
-  const [role, setRole] = useState("");
+  const [tuitionDef, setTuitionDef] = useState("");
 
   useEffect(() => {
-    if (name) {
-      role == "Teacher"
-        ? dispatch(getSchedulesByTeacher(name))
-        : dispatch(getSchedulesByAssistant(name));
-    }
-  }, [name, dispatch]);
-
-  useEffect(() => {
-    if (schedulesList) {
-      const monthScheduleCount = {};
-      schedulesList.forEach(schedule => {
-        const startTime = new Date(schedule.startTime);
-        const monthYear = `${
-          startTime.getMonth() + 1
-        }/${startTime.getFullYear()}`;
-        if (monthScheduleCount[monthYear]) {
-          monthScheduleCount[monthYear]++;
-        } else {
-          monthScheduleCount[monthYear] = 1;
+    if (moneyDefsList.length > 0) {
+      const tuitionDef = teacherID
+        ? moneyDefsList.find(def => def.type === "Giáo viên")
+        : moneyDefsList.find(def => def.type === "Trợ giảng");
+      if (tuitionDef) {
+        const parsedAmount = parseFloat(tuitionDef.amount);
+        if (!isNaN(parsedAmount)) {
+          setTuitionDef(parsedAmount);
         }
-      });
-      const monthScheduleArray = Object.entries(monthScheduleCount).map(
-        ([month, count]) => ({ month, count })
-      );
-      setTuition(monthScheduleArray);
+      }
     }
-  }, [schedulesList]);
-
-  const [month, setMonth] = useState("");
-
-  const [amount, setAmount] = useState("");
+  }, [moneyDefsList]);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -103,11 +86,12 @@ const AddMoneyWage = () => {
   const [loader, setLoader] = useState(false);
 
   const fields = {
-    name,
-    month,
-    amount,
+    name: teacherID ? teacherID : assistantID,
+    month: item2,
+    amount: (item1 * tuitionDef).toString(),
     type: "wage",
     adminID,
+    status: "Đã thanh toán"
   };
 
   const address = "Money";
@@ -115,7 +99,6 @@ const AddMoneyWage = () => {
   const submitHandler = event => {
     event.preventDefault();
     setLoader(true);
-    console.log(fields);
     dispatch(addStuff(fields, address));
   };
 
@@ -169,7 +152,7 @@ const AddMoneyWage = () => {
                 mb: 2,
               }}
             >
-              Thêm mới Học phí
+              Thêm mới Lương
             </Stack>
             <form onSubmit={submitHandler}>
               <Grid container spacing={2}>
@@ -181,18 +164,9 @@ const AddMoneyWage = () => {
                     <Select
                       labelId="sclass-select-label"
                       id="sclass-select"
-                      value={name}
-                      onChange={event => {
-                        const selectedStudentId = event.target.value;
-                        setName(selectedStudentId);
-                        const selectedStudent = combinedList.find(
-                          student => student._id === selectedStudentId
-                        );
-                        if (selectedStudent) {
-                          setRole(selectedStudent.role);
-                        }
-                      }}
+                      value={teacherID ? teacherID : assistantID}
                       label="Tên giáo viên/trợ giảng"
+                      disabled
                     >
                       {combinedList.map(teacher => (
                         <MenuItem key={teacher._id} value={teacher._id}>
@@ -208,15 +182,13 @@ const AddMoneyWage = () => {
                     <Select
                       labelId="sclass-select-label"
                       id="sclass-select"
-                      value={month}
-                      onChange={event => setMonth(event.target.value)}
+                      value={item2}
                       label="Tháng"
+                      disabled
                     >
-                      {tuition.map(loc => (
-                        <MenuItem key={loc.month} value={loc.month}>
-                          {loc.month}
-                        </MenuItem>
-                      ))}
+                      <MenuItem key={item2} value={item2}>
+                        {item2}
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -225,15 +197,10 @@ const AddMoneyWage = () => {
                     fullWidth
                     label="Số tiền"
                     variant="outlined"
-                    value={amount}
-                    onChange={event => {
-                      const value = event.target.value;
-                      if (/^\d*$/.test(value)) {
-                        setAmount(value);
-                      }
-                    }}
+                    value={item1 * tuitionDef}
                     required
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    disabled
                   />
                 </Grid>
               </Grid>

@@ -1,18 +1,16 @@
 const bcrypt = require("bcrypt");
 const Assistant = require("../models/assistantSchema.js");
+const Teacher = require("../models/teacherSchema.js");
+const path = require("path");
+const fs = require("fs");
 
 const assistantRegister = async (req, res) => {
   const { name, sclassName, dob, phone, email, password, role, adminID } =
     req.body;
-
   const avatar = req.file ? req.file.path : req.body.avatar;
-  console.log(req.body.avatar);
-
   try {
     const salt = await bcrypt.genSalt(10);
-
     const hashedPass = await bcrypt.hash(password, salt);
-
     const assistant = new Assistant({
       name,
       sclassName,
@@ -24,9 +22,7 @@ const assistantRegister = async (req, res) => {
       role,
       school: adminID,
     });
-
     const existingAssistantByEmail = await Assistant.findOne({ email });
-
     if (existingAssistantByEmail) {
       res.send({ message: "Email đã được sử dụng" });
     } else {
@@ -43,7 +39,6 @@ const assistantLogIn = async (req, res) => {
   try {
     let assistant = await Assistant.findOne({ email: req.body.email });
     if (assistant) {
-      console.log(req.body.password, assistant.password);
       const validated = await bcrypt.compare(
         req.body.password,
         assistant.password
@@ -96,12 +91,20 @@ const updateAssistant = async (req, res) => {
   try {
     const assistantId = req.params.id;
     const { name, sclassName, dob, phone } = req.body;
-    const avatar = req.file ? req.file.path : req.body.avatar;
-    console.log(avatar);
+    const avatar = req.file ? req.file.filename : req.body.avatar;
 
     const existingAssistant = await Assistant.findById(assistantId);
     if (!existingAssistant) {
       return res.status(404).send({ message: "Trợ giảng không tồn tại" });
+    }
+
+    // Xóa ảnh cũ nếu tồn tại
+    if (existingAssistant.avatar) {
+      const oldPath = path.join(__dirname, "..", 'public/avatar', existingAssistant.avatar);
+      if (fs.existsSync(oldPath)) {
+        await fs.unlinkSync(oldPath);
+        console.log("Xoá ảnh cũ thành công!!!");
+      }
     }
     existingAssistant.name = name;
     existingAssistant.sclassName = sclassName;
@@ -113,25 +116,6 @@ const updateAssistant = async (req, res) => {
     res.send(updatedAssistant);
   } catch (err) {
     res.status(500).json(err);
-  }
-};
-
-const updateAssistantSubject = async (req, res) => {
-  const { assistantId, teachSubject } = req.body;
-  try {
-    const updatedAssistant = await Assistant.findByIdAndUpdate(
-      assistantId,
-      { teachSubject },
-      { new: true }
-    );
-
-    await Subject.findByIdAndUpdate(teachSubject, {
-      assistant: updatedAssistant._id,
-    });
-
-    res.send(updatedAssistant);
-  } catch (error) {
-    res.status(500).json(error);
   }
 };
 
@@ -242,7 +226,6 @@ module.exports = {
   assistantLogIn,
   getAssistants,
   getAssistantDetail,
-  updateAssistantSubject,
   deleteAssistant,
   deleteAssistants,
   deleteAssistantsByClass,

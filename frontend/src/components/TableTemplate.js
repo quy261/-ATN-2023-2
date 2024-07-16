@@ -22,6 +22,7 @@ const TableTemplate = ({
   rows,
   classes,
   rowStyle,
+  disableSearch,
 }) => {
   const [page, setPage] = useState(0);
 
@@ -54,7 +55,7 @@ const TableTemplate = ({
       String(row[column.id]).toLowerCase().includes(search.toLowerCase())
     );
     const matchesClass =
-      filterClass === "all" || row.sclassName === filterClass;
+      filterClass === "all" || row.sclassName === filterClass || row.sclass === filterClass;
     return matchesSearch && matchesClass;
   });
 
@@ -93,15 +94,17 @@ const TableTemplate = ({
           </Grid>
         )}
         <Grid item xs={classes ? 6 : 12} mb="1rem">
-          <TextField
-            label="Tìm kiếm"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={search}
-            onChange={handleSearchChange}
-            fontSize="2rem"
-          />
+          {disableSearch ? null : (
+            <TextField
+              label="Tìm kiếm"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={search}
+              onChange={handleSearchChange}
+              fontSize="2rem"
+            />
+          )}
         </Grid>
       </Grid>
       <TableContainer>

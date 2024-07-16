@@ -57,7 +57,7 @@ const AdminHomePage = () => {
 
   const { schedulesList } = useSelector(state => state.schedule);
 
-  const { currentUser } = useSelector(state => state.user);
+  const { currentUser, currentRole } = useSelector(state => state.user);
 
   const adminID = currentUser._id;
 
@@ -80,7 +80,7 @@ const AdminHomePage = () => {
 
   useEffect(() => {
     const tuitionTotal = moneysList
-      .filter(item => item.type === "tuition")
+      .filter(item => item.type === "tuition" && !item.image)
       .reduce((total, item) => total + parseInt(item.amount), 0);
     setTuition(tuitionTotal);
     const wageTotal = moneysList
@@ -224,6 +224,10 @@ const AdminHomePage = () => {
     setModalOpen(true);
   };
 
+  const handleStudentClick = id => {
+    navigate(`/Admin/student/${id}`);
+  };
+
   const handleClose = () => {
     setModalOpen(false);
     setSelectedScheduleDetail(null);
@@ -233,9 +237,62 @@ const AdminHomePage = () => {
     dayjs(item.startTime).isToday()
   );
 
+  const getUnexcusedAbsences = schedulesList => {
+    const absencesMap = {};
+    // lọc ra các lịch học trong tháng
+    let schedulesListMonth = schedulesList.filter(schedule => {
+      const now = new Date();
+      const timeSchedule = dayjs(schedule.startTime);
+      return timeSchedule.month() === now.getMonth() && timeSchedule.year () === now.getFullYear();
+    });
+
+    // lọc ra các buổi học có học sinh vắng mặt không phép
+    schedulesListMonth.forEach(schedule => {
+      schedule.absences.forEach(absence => {
+        if (absence.asked === "false") {
+          if (!absencesMap[absence.id]) {
+            absencesMap[absence.id] = 0;
+          }
+          absencesMap[absence.id]++;
+        }
+      });
+    });
+    return absencesMap;
+  };
+
+  const filterStudents = absencesMap => {
+    return Object.keys(absencesMap).filter(
+      studentId => absencesMap[studentId] > 0
+    );
+  };
+
+  const absencesMap = getUnexcusedAbsences(schedulesList);
+
+  const getStudents = absencesMap => {
+    return Object.keys(absencesMap)
+      .filter(studentId => absencesMap[studentId] > 0) // hiển thị những học sinh nghỉ học nhiều
+      .map(studentId => ({
+        id: studentId,
+        absences: absencesMap[studentId],
+      }));
+  };
+
+  const selectedStudentList = getStudents(absencesMap);
+
   const getSclassNameById = id => {
     const sclass = sclassesList.find(sclass => sclass._id === id);
     return sclass ? `${sclass.sclassName}` : "Unknown";
+  };
+
+  const getSclassNameByStudentId = studentId => {
+    const student = studentsList.find(student => student._id === studentId);
+    if (student) {
+      const sclass = sclassesList.find(
+        sclass => sclass._id === student.sclassName
+      );
+      return sclass ? `${sclass.sclassName}` : "Unknown";
+    }
+    return "Unknown";
   };
 
   const getRoomNameById = id => {
@@ -253,10 +310,15 @@ const AdminHomePage = () => {
     return assistant ? `${assistant.name}` : "Unknown";
   };
 
+  const getStudentNameById = id => {
+    const student = studentsList.find(student => student._id === id);
+    return student ? `${student.name}` : "Unknown";
+  };
+
   return (
     <>
       <div style={{ padding: "2rem" }}>
-        <TitleComponent>THỐNG KÊ TRUNG TÂM HC EDUCATION</TitleComponent>
+        <TitleComponent>THỐNG KÊ TRUNG TÂM LUYỆN THI HC EDUCATION</TitleComponent>
         <Grid container spacing={3} mb={2}>
           <Grid item xs={12} md={2} lg={2}>
             <StyledPaper
@@ -325,36 +387,6 @@ const AdminHomePage = () => {
             </StyledPaper>
           </Grid>
         </Grid>
-        <TitleComponent>DOANH THU THÁNG</TitleComponent>
-        <Grid container spacing={3} mb={2}>
-          <Grid item xs={12} md={4}>
-            <StyledPaper>
-              <img src={Fees} alt="Fees" width={"64px"} />
-              <Title>Học phí</Title>
-              <Data start={0} end={tuition} duration={1} prefix="$" />{" "}
-            </StyledPaper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <StyledPaper>
-              <img src={Fees} alt="Fees" width={"64px"} />
-              <Title>Lương giáo viên/trợ giảng</Title>
-              <Data
-                start={0}
-                end={wage}
-                duration={1}
-                prefix="-$"
-                style={{ color: "red" }}
-              />{" "}
-            </StyledPaper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <StyledPaper>
-              <img src={Fees} alt="Fees" width={"64px"} />
-              <Title>Doanh thu</Title>
-              <Data start={0} end={revenue} duration={1} prefix="$" />{" "}
-            </StyledPaper>
-          </Grid>
-        </Grid>
         <TitleComponent>LỊCH HỌC TRONG NGÀY</TitleComponent>
         {!selectedSchedule && (
           <Typography
@@ -364,7 +396,7 @@ const AdminHomePage = () => {
               fontWeight: "400",
             }}
           >
-            Không có lịch học trong ngày
+            Không có lịch học trong ngày
           </Typography>
         )}
         <Grid container spacing={3}>
@@ -386,6 +418,33 @@ const AdminHomePage = () => {
             </Grid>
           ))}
         </Grid>
+        {currentRole == "Admin" && (
+          <>
+            <TitleComponent>{`HỌC SINH NGHỈ KHÔNG PHÉP TRONG THÁNG ${new Date().getMonth() + 1}/${new Date().getFullYear()}`}</TitleComponent>
+            {selectedStudentList.length == 0 && (
+              <Typography
+                variant="h5"
+                style={{
+                  color: "#555555",
+                  fontWeight: "400",
+                }}
+              >
+                Danh sách trống
+              </Typography>
+            )}
+            <Grid container spacing={3}>
+              {selectedStudentList.map((item, index) => (
+                <Grid item xs={12} md={4} key={index}>
+                  <ScheduleItem onClick={() => handleStudentClick(item.id)}>
+                    <p>Họ tên: {getStudentNameById(item.id)}</p>
+                    <p>Lớp: {getSclassNameByStudentId(item.id)}</p>
+                    <p>Số lần nghỉ không phép: {item.absences}</p>
+                  </ScheduleItem>
+                </Grid>
+              ))}
+            </Grid>
+          </>
+        )}
         {selectedScheduleDetail && (
           <ScheduleModal
             open={modalOpen}

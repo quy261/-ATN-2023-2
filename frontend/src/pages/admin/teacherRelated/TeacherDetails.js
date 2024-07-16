@@ -25,13 +25,13 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 
 import { getTeacherDetails } from "../../../redux/teacherRelated/teacherHandle";
 import Popup from "../../../components/Popup";
-import Ava from "../../../assets/teacher/giao-vien-02.png";
 import { LightWhiteButton } from "../../../components/buttonStyles";
 import { getAllRooms } from "../../../redux/roomRelated/roomHandle";
 import { getAllAssistants } from "../../../redux/assistantRelated/assistantHandle";
 import { getAllSclasses } from "../../../redux/sclassRelated/sclassHandle";
 import { getSchedulesByTeacher } from "../../../redux/scheduleRelated/scheduleHandle";
 import { getAllMoneys } from "../../../redux/moneyRelated/moneyHandle";
+import { getAllMoneyDefs } from "../../../redux/moneyDefRelated/moneyDefHandle";
 
 const TeacherDetails = () => {
   const params = useParams();
@@ -59,6 +59,7 @@ const TeacherDetails = () => {
     dispatch(getAllRooms(adminID));
     dispatch(getAllAssistants(adminID));
     dispatch(getAllMoneys(adminID));
+    dispatch(getAllMoneyDefs(adminID));
   }, [dispatch, adminID, teacherID]);
 
   const { schedulesList } = useSelector(state => state.schedule);
@@ -70,6 +71,22 @@ const TeacherDetails = () => {
   const { assistantsList } = useSelector(state => state.assistant);
 
   const { moneysList } = useSelector(state => state.money);
+
+  const { moneyDefsList } = useSelector(state => state.moneyDef);
+
+  const [wageDef, setWageDef] = useState("");
+
+  useEffect(() => {
+    if (moneyDefsList.length > 0) {
+      const wageDef = moneyDefsList.find(def => def.type === "Giáo viên");
+      if (wageDef) {
+        const parsedAmount = parseFloat(wageDef.amount);
+        if (!isNaN(parsedAmount)) {
+          setWageDef(parsedAmount);
+        }
+      }
+    }
+  }, [moneyDefsList]);
 
   const getSclassNameById = id => {
     const sclass = sclassesList.find(sclass => sclass._id === id);
@@ -94,6 +111,8 @@ const TeacherDetails = () => {
 
   const [message, setMessage] = useState("");
 
+
+
   const TeacherDetailsSection = () => {
     return (
       <>
@@ -111,14 +130,13 @@ const TeacherDetails = () => {
               <img
                 alt="avt"
                 src={
-                  teacherDetails.avatar == "null"
-                    ? "../../avatar/user.png"
-                    : `../../avatar/${teacherDetails.avatar.split("\\").pop()}`
+                  teacherDetails.avatar === "null"
+                    ? `${process.env.REACT_APP_BASE_URL}/uploads/avatar/user.png`
+                    : `${process.env.REACT_APP_BASE_URL}/uploads/avatar/${teacherDetails.avatar}`
                 }
                 style={{ width: "50%" }}
               />
             )}
-            {/* <img src={Ava} alt="avt" style={{ width: "50%" }} /> */}
             {teacherDetails && (
               <p style={{ fontSize: "1.25rem", fontStyle: "italic" }}>
                 {teacherDetails.sclassName + " " + teacherDetails.name}
@@ -262,7 +280,7 @@ const TeacherDetails = () => {
         if (!newWage[monthYear]) {
           newWage[monthYear] = {
             count: monthScheduleCount[monthYear],
-            paid: false,
+            paid: "Chưa thanh toán",
           };
         }
       });
@@ -270,7 +288,7 @@ const TeacherDetails = () => {
       moneysList.forEach(money => {
         const monthYear = money.month;
         if (newWage[monthYear] && money.name === teacherID) {
-          newWage[monthYear].paid = true;
+          newWage[monthYear].paid = money.status;
         }
       });
 
@@ -490,13 +508,16 @@ const TeacherDetails = () => {
 
   const handleClick = item => {
     setSelectedScheduleDetail(item);
-    console.log(item);
     setModalOpen(true);
   };
 
   const handleClose = () => {
     setModalOpen(false);
     setSelectedScheduleDetail(null);
+  };
+
+  const handleAddWage = (item1, item2) => {
+    navigate("/Admin/moneyaddwage", { state: { item1, item2, teacherID } });
   };
 
   return (
@@ -507,7 +528,7 @@ const TeacherDetails = () => {
         <>
           <div style={{ padding: "2rem" }}>
             <div style={{ display: "flex" }}>
-              <BackButton onClick={() => navigate("/Admin/teachers")}>
+              <BackButton onClick={() => navigate(-1)}>
                 <ArrowBackIcon />
               </BackButton>
               <TitleBox>Chi tiết giáo viên</TitleBox>
@@ -531,15 +552,23 @@ const TeacherDetails = () => {
                     <Grid container>
                       {Object.keys(wage).map(monthYear => (
                         <Grid item xs={12} key={monthYear}>
-                          <WageItem style={{ width: "100%" }}>
+                          <WageItem
+                            style={{ width: "100%" }}
+                            onClick={() =>
+                              currentRole === "Accountant" && wage[monthYear].paid === "Chưa thanh toán" 
+                                ? handleAddWage(
+                                    wage[monthYear].count,
+                                    monthYear
+                                  )
+                                : {}
+                            }
+                          >
                             <p>
                               Tháng {monthYear}: {wage[monthYear].count} buổi
                             </p>
                             <p>
-                              Lương: {wage[monthYear].count * 1000000}đ
-                              {wage[monthYear].paid
-                                ? " (Đã trả)"
-                                : " (Chưa trả)"}
+                              Lương: {wage[monthYear].count * wageDef}đ
+                              - <i>{wage[monthYear].paid}</i>
                             </p>
                           </WageItem>
                         </Grid>

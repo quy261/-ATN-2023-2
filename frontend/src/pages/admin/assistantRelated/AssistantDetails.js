@@ -1,8 +1,8 @@
-import { React, useEffect, useState, useRef } from "react";
+import { React, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 
 import {
@@ -25,13 +25,13 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 
 import { getAssistantDetails } from "../../../redux/assistantRelated/assistantHandle";
 import Popup from "../../../components/Popup";
-import Ava from "../../../assets/teacher/giao-vien-02.png";
 import { LightWhiteButton } from "../../../components/buttonStyles";
 import { getAllRooms } from "../../../redux/roomRelated/roomHandle";
 import { getAllSclasses } from "../../../redux/sclassRelated/sclassHandle";
 import { getSchedulesByAssistant } from "../../../redux/scheduleRelated/scheduleHandle";
 import { getAllTeachers } from "../../../redux/teacherRelated/teacherHandle";
 import { getAllMoneys } from "../../../redux/moneyRelated/moneyHandle";
+import { getAllMoneyDefs } from "../../../redux/moneyDefRelated/moneyDefHandle";
 
 const AssistantDetails = () => {
   const params = useParams();
@@ -59,6 +59,7 @@ const AssistantDetails = () => {
     dispatch(getAllRooms(adminID));
     dispatch(getAllTeachers(adminID));
     dispatch(getAllMoneys(adminID));
+    dispatch(getAllMoneyDefs(adminID));
   }, [dispatch, assistantID]);
 
   const { schedulesList } = useSelector(state => state.schedule);
@@ -70,6 +71,22 @@ const AssistantDetails = () => {
   const { teachersList } = useSelector(state => state.teacher);
 
   const { moneysList } = useSelector(state => state.money);
+
+  const { moneyDefsList } = useSelector(state => state.moneyDef);
+
+  const [wageDef, setWageDef] = useState("");
+
+  useEffect(() => {
+    if (moneyDefsList.length > 0) {
+      const wageDef = moneyDefsList.find(def => def.type === "Trợ giảng");
+      if (wageDef) {
+        const parsedAmount = parseFloat(wageDef.amount);
+        if (!isNaN(parsedAmount)) {
+          setWageDef(parsedAmount);
+        }
+      }
+    }
+  }, [moneyDefsList]);
 
   const getSclassNameById = id => {
     const sclass = sclassesList.find(sclass => sclass._id === id);
@@ -111,11 +128,9 @@ const AssistantDetails = () => {
               <img
                 alt="avt"
                 src={
-                  assistantDetails.avatar == "null"
-                    ? "../../avatar/user.png"
-                    : `../../avatar/${assistantDetails.avatar
-                        .split("\\")
-                        .pop()}`
+                  assistantDetails.avatar === "null"
+                    ? `${process.env.REACT_APP_BASE_URL}/uploads/avatar/user.png`
+                    : `${process.env.REACT_APP_BASE_URL}/uploads/avatar/${assistantDetails.avatar}`
                 }
                 style={{ width: "50%" }}
               />
@@ -208,7 +223,7 @@ const AssistantDetails = () => {
               </Typography>
             </div>
             <div style={{ display: "flex", justifyContent: "end" }}>
-              {currentRole == "Admin" ? (
+              {currentRole === "Admin" ? (
                 <LightWhiteButton
                   variant="contained"
                   onClick={() =>
@@ -265,7 +280,7 @@ const AssistantDetails = () => {
         if (!newWage[monthYear]) {
           newWage[monthYear] = {
             count: monthScheduleCount[monthYear],
-            paid: false,
+            paid: "Chưa thanh toán",
           };
         }
       });
@@ -273,7 +288,7 @@ const AssistantDetails = () => {
       moneysList.forEach(money => {
         const monthYear = money.month;
         if (newWage[monthYear] && money.name === assistantID) {
-          newWage[monthYear].paid = true;
+          newWage[monthYear].paid = money.status;
         }
       });
 
@@ -501,6 +516,10 @@ const AssistantDetails = () => {
     setSelectedScheduleDetail(null);
   };
 
+  const handleAddWage = (item1, item2) => {
+    navigate("/Admin/moneyaddwage", { state: { item1, item2, assistantID } });
+  };
+
   return (
     <>
       {loading ? (
@@ -509,7 +528,7 @@ const AssistantDetails = () => {
         <>
           <div style={{ padding: "2rem" }}>
             <div style={{ display: "flex" }}>
-              <BackButton onClick={() => navigate("/Admin/assistants")}>
+              <BackButton onClick={() => navigate(-1)}>
                 <ArrowBackIcon />
               </BackButton>
               <TitleBox>Chi tiết trợ giảng</TitleBox>
@@ -517,7 +536,7 @@ const AssistantDetails = () => {
             <Grid container spacing={0}>
               <Grid item md={12} xl={response ? 12 : 6}>
                 <AssistantDetailsSection />
-                {currentRole == "Admin" || currentRole == "Accountant" ? (
+                {currentRole === "Admin" || currentRole === "Accountant" ? (
                   <>
                     <Typography
                       variant="h5"
@@ -533,15 +552,23 @@ const AssistantDetails = () => {
                     <Grid container>
                       {Object.keys(wage).map(monthYear => (
                         <Grid item xs={12} key={monthYear}>
-                          <WageItem style={{ width: "100%" }}>
+                          <WageItem
+                            style={{ width: "100%" }}
+                            onClick={() =>
+                              currentRole === "Accountant" && wage[monthYear].paid === "Chưa thanh toán" 
+                                ? handleAddWage(
+                                    wage[monthYear].count,
+                                    monthYear
+                                  )
+                                : {}
+                            }
+                          >
                             <p>
                               Tháng {monthYear}: {wage[monthYear].count} buổi
                             </p>
                             <p>
-                              Lương: {wage[monthYear].count * 200000}đ
-                              {wage[monthYear].paid
-                                ? " (Đã trả)"
-                                : " (Chưa trả)"}
+                              Lương: {wage[monthYear].count * wageDef}đ
+                              - <i>{wage[monthYear].paid}</i>
                             </p>
                           </WageItem>
                         </Grid>

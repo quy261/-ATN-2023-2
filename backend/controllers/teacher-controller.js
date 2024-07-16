@@ -1,20 +1,18 @@
 const bcrypt = require("bcrypt");
 const Teacher = require("../models/teacherSchema.js");
 const Assistant = require("../models/assistantSchema.js");
+const path = require("path");
+const fs = require("fs");
+
+
 
 const teacherRegister = async (req, res) => {
-  console.log(req.body);
   const { name, sclassName, dob, phone, email, password, role, adminID } =
     req.body;
-
-  const avatar = req.file ? req.file.path : req.body.avatar;
-  console.log(req.body.avatar);
-
+  const avatar = req.file ? req.file.filename : req.body.avatar;
   try {
     const salt = await bcrypt.genSalt(10);
-
     const hashedPass = await bcrypt.hash(password, salt);
-
     const teacher = new Teacher({
       name,
       sclassName,
@@ -27,7 +25,6 @@ const teacherRegister = async (req, res) => {
       school: adminID,
     });
     const existingTeacherByEmail = await Teacher.findOne({ email });
-
     if (existingTeacherByEmail) {
       res.send({ message: "Email đã được sử dụng" });
     } else {
@@ -95,6 +92,7 @@ const getTeachers = async (req, res) => {
 const getTeacherDetail = async (req, res) => {
   try {
     let teacher = await Teacher.findById(req.params.id);
+    console.log(teacher.avatar);
     if (teacher) {
       teacher.password = undefined;
       res.send(teacher);
@@ -110,19 +108,26 @@ const updateTeacher = async (req, res) => {
   try {
     const teacherId = req.params.id;
     const { name, sclassName, dob, phone } = req.body;
-    const avatar = req.file ? req.file.path : req.body.avatar;
-    console.log(avatar);
-
+    const avatar = req.file ? req.file.filename : req.body.avatar;
     const existingTeacher = await Teacher.findById(teacherId);
     if (!existingTeacher) {
       return res.status(404).send({ message: "Giáo viên không tồn tại" });
     }
+
+    // Xóa ảnh cũ nếu tồn tại
+    if (existingTeacher.avatar) {
+      const oldPath = path.join(__dirname, "..", 'public/avatar', existingTeacher.avatar);
+      if (fs.existsSync(oldPath)) {
+        await fs.unlinkSync(oldPath);
+        console.log("Xoá ảnh cũ thành công!!!");
+      }
+    }
+
     existingTeacher.name = name;
     existingTeacher.sclassName = sclassName;
     existingTeacher.dob = dob;
     existingTeacher.phone = phone;
     existingTeacher.avatar = avatar;
-
     const updatedTeacher = await existingTeacher.save();
     res.send(updatedTeacher);
   } catch (err) {
@@ -130,118 +135,10 @@ const updateTeacher = async (req, res) => {
   }
 };
 
-const updateTeacherSubject = async (req, res) => {
-  const { teacherId, teachSubject } = req.body;
-  try {
-    const updatedTeacher = await Teacher.findByIdAndUpdate(
-      teacherId,
-      { teachSubject },
-      { new: true }
-    );
-
-    await Subject.findByIdAndUpdate(teachSubject, {
-      teacher: updatedTeacher._id,
-    });
-
-    res.send(updatedTeacher);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
 const deleteTeacher = async (req, res) => {
   try {
     const deletedTeacher = await Teacher.findByIdAndDelete(req.params.id);
-
-    await Subject.updateOne(
-      { teacher: deletedTeacher._id, teacher: { $exists: true } },
-      { $unset: { teacher: 1 } }
-    );
-
     res.send(deletedTeacher);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
-const deleteTeachers = async (req, res) => {
-  try {
-    const deletionResult = await Teacher.deleteMany({ school: req.params.id });
-
-    const deletedCount = deletionResult.deletedCount || 0;
-
-    if (deletedCount === 0) {
-      res.send({ message: "No teachers found to delete" });
-      return;
-    }
-
-    const deletedTeachers = await Teacher.find({ school: req.params.id });
-
-    await Subject.updateMany(
-      {
-        teacher: { $in: deletedTeachers.map(teacher => teacher._id) },
-        teacher: { $exists: true },
-      },
-      { $unset: { teacher: "" }, $unset: { teacher: null } }
-    );
-
-    res.send(deletionResult);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
-const deleteTeachersByClass = async (req, res) => {
-  try {
-    const deletionResult = await Teacher.deleteMany({
-      sclassName: req.params.id,
-    });
-
-    const deletedCount = deletionResult.deletedCount || 0;
-
-    if (deletedCount === 0) {
-      res.send({ message: "No teachers found to delete" });
-      return;
-    }
-
-    const deletedTeachers = await Teacher.find({ sclassName: req.params.id });
-
-    await Subject.updateMany(
-      {
-        teacher: { $in: deletedTeachers.map(teacher => teacher._id) },
-        teacher: { $exists: true },
-      },
-      { $unset: { teacher: "" }, $unset: { teacher: null } }
-    );
-
-    res.send(deletionResult);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
-const teacherAttendance = async (req, res) => {
-  const { status, date } = req.body;
-
-  try {
-    const teacher = await Teacher.findById(req.params.id);
-
-    if (!teacher) {
-      return res.send({ message: "Teacher not found" });
-    }
-
-    const existingAttendance = teacher.attendance.find(
-      a => a.date.toDateString() === new Date(date).toDateString()
-    );
-
-    if (existingAttendance) {
-      existingAttendance.status = status;
-    } else {
-      teacher.attendance.push({ date, status });
-    }
-
-    const result = await teacher.save();
-    return res.send(result);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -253,9 +150,5 @@ module.exports = {
   getTeachers,
   getTeacherDetail,
   updateTeacher,
-  updateTeacherSubject,
   deleteTeacher,
-  deleteTeachers,
-  deleteTeachersByClass,
-  teacherAttendance,
 };

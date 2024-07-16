@@ -81,7 +81,6 @@ const sclassList = async (req, res) => {
       res.send({ message: "No sclasses found" });
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json(err);
   }
 };

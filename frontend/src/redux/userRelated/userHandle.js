@@ -9,9 +9,7 @@ import {
   doneSuccess,
   doneSuccessGet,
   doneSuccessUpdate,
-  getDeleteSuccess,
   getRequest,
-  getFailed,
   getError,
   deleteUserSuccess,
   deleteUserError,
@@ -40,13 +38,11 @@ export const loginUser = (fields, role) => async dispatch => {
 
 export const registerUser = (fields, role) => async dispatch => {
   dispatch(authRequest());
-
   try {
     const result = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/${role}Reg`,
       fields
     );
-    console.log(result.data)
     if (result.data.school || result.data.schoolName) {
       dispatch(stuffAdded());
     } else {
@@ -75,21 +71,6 @@ export const getUserDetails = (id, address) => async dispatch => {
     dispatch(getError(error));
   }
 };
-
-// export const deleteUser = (id, address) => async (dispatch) => {
-//     dispatch(getRequest());
-
-//     try {
-//         const result = await axios.delete(`${process.env.REACT_APP_BASE_URL}/${address}/${id}`);
-//         if (result.data.message) {
-//             dispatch(getFailed(result.data.message));
-//         } else {
-//             dispatch(getDeleteSuccess());
-//         }
-//     } catch (error) {
-//         dispatch(getError(error));
-//     }
-// }
 
 export const deleteUser = (deleteID, address) => async dispatch => {
   try {
@@ -237,15 +218,82 @@ export const updateSchedule = (id, fields) => async dispatch => {
   }
 };
 
+export const updateMoneyDef = (id, fields) => async dispatch => {
+  dispatch(getRequest());
+  try {
+    const result = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/MoneyDef/${id}`,
+      fields
+    );
+    if (result.data) {
+      dispatch(doneSuccessUpdate(result.data, { meta: { arg: "update" } }));
+    }
+  } catch (error) {
+    if (error.response) {
+      dispatch(getError(error.response.data));
+    } else {
+      dispatch(getError({ message: "Network error" }));
+    }
+  }
+};
+
+export const updateMoney = (id, fields) => async dispatch => {
+  dispatch(getRequest());
+  try {
+    console.log(fields);
+    const result = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/Money/${id}`,
+      fields
+    );
+    if (result.data) {
+      dispatch(doneSuccessUpdate(result.data, { meta: { arg: "update" } }));
+    }
+  } catch (error) {
+    if (error.response) {
+      dispatch(getError(error.response.data));
+    } else {
+      dispatch(getError({ message: "Network error" }));
+    }
+  }
+};
+
 export const addStuff = (fields, address) => async dispatch => {
   dispatch(authRequest());
-
   try {
     const result = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/${address}Create`,
       fields,
       {
         headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (result.data.message) {
+      dispatch(authFailed(result.data.message));
+    } else {
+      dispatch(stuffAdded(result.data));
+    }
+  } catch (error) {
+    if (error.response && error.response.data) {
+      dispatch(authFailed(error.response.data.message));
+    } else {
+      dispatch(authError("Network Error"));
+    }
+  }
+};
+
+export const addMoneyStuff = (fields, address) => async dispatch => {
+  dispatch(authRequest());
+  try {
+    const formData = new FormData();
+    for (const key in fields) {
+      formData.append(key, fields[key]);
+    }
+    const result = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/${address}Create`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
       }
     );
 

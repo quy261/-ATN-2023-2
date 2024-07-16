@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import dayjs from "dayjs";
 import styled from "styled-components";
 
 import {
@@ -11,15 +10,8 @@ import {
   Stack,
   TextField,
   Grid,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateTimeField } from "@mui/x-date-pickers/DateTimeField";
 
 import Popup from "../../../components/Popup";
 import {
@@ -84,7 +76,6 @@ const AddComment = () => {
   const submitHandler = event => {
     event.preventDefault();
     setLoader(true);
-    console.log(fields);
     dispatch(addStuff(fields, address));
   };
 

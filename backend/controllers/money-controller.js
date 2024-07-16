@@ -1,28 +1,25 @@
 const Money = require("../models/moneySchema.js");
 
 const moneyCreate = async (req, res) => {
-  const {
-    name,
-    month,
-    amount,
-    type,
-    adminID,
-  } = req.body;
-
+  console.log(res.file);
+  const { name, status, month, amount, type, adminID } = req.body;
   try {
+    console.log("File ở đây:", req.file);
+    // sửa ở đây
+    const image = req.file ? req.file.filename : req.body.image;
     const money = new Money({
       name,
       month,
       amount,
       type,
+      image,
       adminID,
+      status
     });
-
     const existingMoneyByName = await Money.findOne({
       name: name,
       month: month,
     });
-
     if (existingMoneyByName) {
       res.send({ message: "Doanh thu đã tồn tại" });
     } else {
@@ -64,13 +61,25 @@ const getMoneyDetail = async (req, res) => {
 const deleteMoney = async (req, res) => {
   try {
     const deletedMoney = await Money.findByIdAndDelete(req.params.id);
-
-    await Subject.updateOne(
-      { money: deletedMoney._id, money: { $exists: true } },
-      { $unset: { money: 1 } }
-    );
-
     res.send(deletedMoney);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const updateMoney = async (req, res) => {
+  try {
+    const { status } = req.body;
+    console.log(status);
+    const updatedMoney = await Money.findByIdAndUpdate(
+      req.params.id,
+      { $unset: { image: "" }, $set: { status: status }},
+      { new: true }
+    );
+    if (!updatedMoney) {
+      return res.status(404).send({ message: "Doanh thu không tồn tại" });
+    }
+    res.send(updatedMoney);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -81,4 +90,5 @@ module.exports = {
   getMoneys,
   getMoneyDetail,
   deleteMoney,
+  updateMoney,
 };

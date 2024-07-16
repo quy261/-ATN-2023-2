@@ -21,10 +21,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import bgpic from "../assets/background-textures.webp";
-import { LightRedButton } from "../components/buttonStyles";
+import { LightRedButton, LightWhiteButton } from "../components/buttonStyles";
 import { loginUser } from "../redux/userRelated/userHandle";
 import Popup from "../components/Popup";
-
 
 const defaultTheme = createTheme();
 
@@ -172,6 +171,7 @@ const LoginPage = ({ role }) => {
                   }
                   label="Nhớ mật khẩu"
                 />
+                <StyledLink href="#">Quên mật khẩu?</StyledLink>
               </Grid>
               <LightRedButton
                 type="submit"
@@ -185,6 +185,18 @@ const LoginPage = ({ role }) => {
                   "Đăng nhập"
                 )}
               </LightRedButton>
+              <LightWhiteButton
+              onClick = {() => navigate(-1)}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3 }}
+              >
+              {loader ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  "Chọn lại quyền đăng nhập"
+                )} 
+              </LightWhiteButton>
             </Box>
           </Box>
         </Grid>
@@ -223,7 +235,7 @@ const StyledLink = styled(Link)`
   margin-top: 9px;
   text-decoration: none;
   color: #ca224f;
-  
+
   &:hover {
     color: #9b184c;
   }

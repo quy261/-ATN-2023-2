@@ -16,6 +16,7 @@ import Teacher from "../assets/teacher/teacher.jpg";
 import Student from "../assets/teacher/student.jpg";
 import Admin from "../assets/teacher/admin.jpg";
 import Popup from "../components/Popup";
+import {LightWhiteButton} from "../components/buttonStyles"
 
 const ChooseUser = () => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const ChooseUser = () => {
   return (
     <StyledContainer>
       <Container>
+      <LightWhiteButton onClick={() => navigate(-1)}> Quay lại trang chủ </LightWhiteButton>
         <MyGrid
           container
           rowSpacing={{ xs: 3, md: 0 }}
@@ -101,7 +103,6 @@ const ChooseUser = () => {
               </Grid>
             );
           })}
-          
         </MyGrid>
       </Container>
       <Backdrop

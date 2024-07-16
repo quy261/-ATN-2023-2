@@ -117,9 +117,6 @@ const ShowSchedules = () => {
   const [message, setMessage] = useState("");
 
   const deleteHandler = (deleteID, address) => {
-    console.log(deleteID);
-    console.log(address);
-
     dispatch(deleteUser(deleteID, address)).then(() => {
       dispatch(getAllSchedules(adminID, "schedule"));
     });
@@ -189,6 +186,8 @@ const ShowSchedules = () => {
       id: schedule._id,
     };
   });
+
+  const classNames = sclassesList.map(sclass => sclass.sclassName);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -260,6 +259,7 @@ const ShowSchedules = () => {
           </div>
           <TableTemplate
             buttonHaver={StudentsButtonHaver}
+            classes={classNames}
             columns={scheduleColumns}
             rows={scheduleRows}
             rowStyle={row => ({

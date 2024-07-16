@@ -147,7 +147,7 @@ const EditAttendanceSchedule = () => {
               container
               style={{ display: "flex", justifyContent: "center" }}
             >
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={6} sm={3}>
                 <div
                   style={{
                     padding: "2rem 4rem",
@@ -163,7 +163,7 @@ const EditAttendanceSchedule = () => {
                       mb: 2,
                     }}
                   >
-                    Điểm danh buổi học
+                    Phiếu điểm danh buổi học ngày {dayjs(scheduleDetails.startTime).format("DD/MM/YYYY")}
                   </Stack>
                   <form onSubmit={submitHandler}>
                     <Grid container spacing={3}>
@@ -193,7 +193,7 @@ const EditAttendanceSchedule = () => {
                       </Grid>
                       <Grid item xs={12}>
                         <Grid container justifyContent={"center"}>
-                          <Grid item xs={12}>
+                          <Grid item xs={12} md={4}>
                             <LightOrangeButton
                               fullWidth
                               size="large"

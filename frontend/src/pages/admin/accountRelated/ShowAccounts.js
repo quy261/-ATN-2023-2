@@ -45,8 +45,6 @@ const ShowAccounts = () => {
   }
 
   const deleteHandler = (deleteID, address) => {
-    console.log(deleteID);
-    console.log(address);
     dispatch(deleteUser(deleteID, address)).then(() => {
       dispatch(getAllAdmins(adminID));
     });
@@ -100,11 +98,11 @@ const ShowAccounts = () => {
   };
 
   const AdminButtonHaver = ({ row }) => {
-    return row.role == "Quản trị viên" ? (
+    return row.role === "Quản trị viên" ? (
       <></>
     ) : (
       <ButtonContainer>
-        {currentRole == "Admin" ? (
+        {currentRole === "Admin" ? (
           <BlueButton
             variant="contained"
             onClick={() => handleDeleteClick(row.id, "Admin")}
@@ -127,7 +125,7 @@ const ShowAccounts = () => {
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <TitleBox>Quản lý tài khoản quản trị </TitleBox>
             {!response &&
-              (currentRole == "Admin" ? (
+              (currentRole === "Admin" ? (
                 <LightOrangeButton
                   variant="contained"
                   onClick={() => navigate("/Admin/accountadd")}
@@ -174,7 +172,7 @@ const ShowAccounts = () => {
                   alignItems={"center"}
                   justifyContent={"center"}
                 >
-                  {currentRole == "Admin" ? (
+                  {currentRole === "Admin" ? (
                     <LightOrangeButton
                       variant="contained"
                       onClick={() => navigate("/Admin/accountadd")}

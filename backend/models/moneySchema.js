@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const moneySchema = new mongoose.Schema(
   {
@@ -14,12 +14,20 @@ const moneySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+    },
     amount: {
       type: String,
       required: true,
     },
+
+    status: {
+      type: String,
+    },
+
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("money", moneySchema)
+module.exports = mongoose.model("money", moneySchema);
